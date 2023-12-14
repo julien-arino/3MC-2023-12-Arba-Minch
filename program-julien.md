@@ -1,0 +1,13 @@
+- Monday 18 December 2023
+    - 08:30-10:00 Lecture 1: History of epidemics and historical epidemics
+    - 14:00-15:30 Lecture 4: Basic concepts of mathematical epidemiology. Models in one population and their basic properties
+- Tuesday 19 December 2023
+    - 08:30-10:00 Lecture 5: Epidemics spreading among groups. Epidemics spreading in space and time
+    - 14:00-15:30 Lecture 7: Group models
+- Wednesday 20 December 2023
+    - 08:30-10:00 Lecture 8: Meta-population models
+    - 14:00-15:30 Lecture 10: Stochastic aspects in the spread of epidemics
+- Thursday 20 December 2023
+    - 08:30-10:00 Lecture 11: Stochastic epidemic models
+    - 10:30-12:00 Lecture 12: Virus models
+    - 14:00-15:30 Lecture 13: Agent-based models
