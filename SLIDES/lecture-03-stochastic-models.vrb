@@ -1,0 +1,9 @@
+\frametitle{Benefit of parallelisation}
+Run the parallel code for 100 sims between `tictoc::tic()` and `tictoc::toc()`, giving `66.958 sec elapsed`, then the sequential version
+\begin{lstlisting}
+tictoc::tic()
+SIMS = lapply(X = 1:params$number_sims,
+                FUN =  function(x) run_one_sim(params))
+tictoc::toc()
+\end{lstlisting}
+    which gives `318.141 sec elapsed` on a 6C/12T Intel(R) Core(TM) i9-8950HK CPU @ 2.90GHz (4.75$\times$ faster) or `12.067 sec elapsed` versus `258.985 sec elapsed` on a 32C/64T AMD Ryzen Threadripper 3970X 32-Core Processor (21.46$\times$ faster !)

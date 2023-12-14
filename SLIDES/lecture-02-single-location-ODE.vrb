@@ -1,0 +1,15 @@
+\frametitle{A last few things then run}
+\begin{lstlisting}
+IC = c(S_b = 0,
+  S = 100000,
+  L_b = 0,
+  L = 0,
+  I_b = 0,
+  I = 0,
+  R = 0,
+  R_b = 0,
+  D = 0)
+tspan = 0:30
+sol <- ode(func = tetanus_Cvjetanovic, y = IC, times = tspan,
+      parms = params, method = "iteration")
+\end{lstlisting}
