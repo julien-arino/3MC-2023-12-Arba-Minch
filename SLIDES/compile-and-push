@@ -1,17 +1,18 @@
 #!/bin/bash
 
 # Compile all course files
-for f in course-*.Rnw
+# for f in course-*.Rnw
+for f in course-01-*.Rnw
 do
   # Remove concordance before sweaving
-  #sed -i 's/concordance\=TRUE/concordance\=FALSE/g' $f
+  sed -i 's/concordance\=TRUE/concordance\=FALSE/g' $f
   # Now sweave
   R CMD Sweave $f
   #sed -i 's/\\SweaveOpts\{concordance\=TRUE\}//g' "${f%.tex}"
   xelatex "${f%.tex}"
   xelatex "${f%.tex}"
   # Reactivate concordance
-  #sed -i 's/concordance\=FALSE/concordance\=TRUE/g' $f
+  sed -i 's/concordance\=FALSE/concordance\=TRUE/g' $f
 done
 
 # Commit and push
