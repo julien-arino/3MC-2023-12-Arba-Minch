@@ -4,16 +4,16 @@
 for f in course-*.Rnw
 do
   # Remove concordance before sweaving
-  sed -i 's/concordance\=TRUE/concordance\=FALSE/g' $f
+  #sed -i 's/concordance\=TRUE/concordance\=FALSE/g' $f
   # Now sweave
   R CMD Sweave $f
-  sed -i 's/\\SweaveOpts\{concordance\=TRUE\}//g' "${f%.tex}"
-  pdflatex "${f%.tex}"
-  pdflatex "${f%.tex}"
+  #sed -i 's/\\SweaveOpts\{concordance\=TRUE\}//g' "${f%.tex}"
+  xelatex "${f%.tex}"
+  xelatex "${f%.tex}"
   # Reactivate concordance
-  sed -i 's/concordance\=FALSE/concordance\=TRUE/g' $f
+  #sed -i 's/concordance\=FALSE/concordance\=TRUE/g' $f
 done
 
-# Commit *.Rnw and *.pdf only
-git commit SLIDES/*.Rnw SLIDES/*.pdf -m "Update slides"
+# Commit and push
+git commit -a -m "Update slides"
 git push
