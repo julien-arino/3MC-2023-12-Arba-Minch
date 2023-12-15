@@ -636,6 +636,93 @@ As indicated, we often drop dependence on $t$ of the state variables; we also wr
   The second case is an \emph{issue}: the usual linearisation does not work when there is a \emph{continuum} of equilibria as the EP are not \emph{isolated}
 \end{frame}
 
+\begin{frame}{What is the problem with non-isolated EP?}
+Adapting slightly the definitions in \cite{HirschSmale1974}, consider the ordinary differential equation
+\begin{equation}\label{eq:ODE}
+    x' = f(x)
+\end{equation}
+where $x(t)\in W$ and $f:W\to E$ is a function such that solutions to \eqref{eq:ODE} exist uniquely, e.g., a $C^1$ function, from an open set $W$ of the vector space $E$ into $E$
+\vfill
+Denote $x(t,x_0)$ the solution to \eqref{eq:ODE} through the initial value $x(t_0)=x_0$
+\end{frame}
+
+\begin{frame}
+A point $x^\star\in W$ is an \emph{equilibrium} if $f(x^\star)=0$
+\vfill
+\begin{definition}[Locally stable equilibrium]\label{def:LS_EP}
+An equilibrium point $x^\star$ of \eqref{eq:ODE} is \emph{locally stable} if for every neighbourhood $\mathcal{N}(x^\star)$ of $x^\star$ in $W$, there is a neighbourhood $\mathcal{N}_1\subseteq\mathcal{N}(x^\star)$ of $x^\star$ such that every solution $x(t,x_0)$ with $x_0\in\mathcal{N}_1$ is defined and in $\mathcal{N}(x^\star)$ for all $t>t_0$
+\end{definition}
+\vfill
+\begin{definition}[Locally asymptotically stable equilibrium]
+If $\mathcal{N}_1$ can be chosen so that in addition to the properties in Definition~\ref{def:LS_EP}, $\lim_{t\to\infty}x(t,x_0)=x^\star$ for all $x_0\in\mathcal{N}_1$, then $x^\star$ is locally asymptotically stable
+\end{definition}
+\end{frame}
+
+\begin{frame}
+The problem with the DFE \eqref{eq:DFE_KMK} of \eqref{sys:KMK} is that they are not \emph{isolated}: any (open) neighbourhood of an equilibrium contains infinitely many other equilibria; see Figure~\ref{fig:neighbourhood_KMK}
+\vfill
+The consequence of this is that stability cannot be asymptotic
+\end{frame}
+
+
+
+\begin{frame}
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+    \coordinate (SN) at (4,0);
+    \coordinate (RN) at (0,4);
+    \coordinate (xs) at (1.5,2.5);
+    % The region
+    \fill[gray!10] (0,4) -| (4,4) -| (4,0) -| (0,0) -- cycle;
+    \draw[gray!40, thick]  (0,0) -- (4,0) -- (4,4) -- (0,4) -- cycle;
+    % axis, on the top
+    \draw[->] (0,0) -- (5.25,0) node[below left] {$S$};
+    \draw[->] (0,0) -- (0,5) node[below left] {$R$};
+    % The line of EP
+    \draw[thin] (SN) -- (RN) node[pos=0.3,right] {$S+R=N_0$};
+    \draw[line width=2] (1,3) -- (2,2);
+    \shade[ball color = gray!40, opacity = 0.4] (xs) circle (0.72);
+    % Intersections on S and R axes
+    \draw (SN) circle (0.1cm) node[below] {$S=N_0$};
+    \shade[ball color = blue, opacity = 1] (SN) circle (0.1cm);
+    \draw (RN) circle (0.1cm) node[left] {$R=N_0$};
+    \shade[ball color = blue, opacity = 1] (RN) circle (0.1cm);
+    % The equilibrium
+    \draw (xs) circle (0.1cm) node[above right] {$x^\star$};
+    \shade[ball color = red, opacity = 1] (xs) circle (0.1cm);
+    \end{tikzpicture}    
+    \caption{Ball: part of a neighbourhood of an equilibrium point $x^\star\in E_0^\text{KMK}$ lying on the $S-R$ plane (the neighbourhood also extends above and below the $S-R$ plane in the $I$ direction). 
+    The thin line is $E_0^\text{KMK}$, while the thick line is the intersection of $E_0^\text{KMK}$ with the neighbourhood of $x^\star$.}
+    \label{fig:neighbourhood_KMK}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{proposition}
+Consider a disease-free equilibrium $x^\star\in E_0^\text{KMK}$ of \eqref{sys:KMK}. Then $x^\star$ is locally stable but not locally asymptotically stable  
+\end{proposition}
+\end{frame}
+
+\begin{frame}{Proof}
+Let $x_1^\star\in E_0^\text{KMK}$ be an equilibrium of \eqref{sys:KMK}.
+Consider $\S_\mathcal{N}(x_1^\star)\subset E_0^\text{KMK}$, open subset of $E_0^\text{KMK}$ containing $x_1^\star$.
+Now take some $x_2^\star\in\S_\mathcal{N}(x_1^\star)$. Since $x_2^\star\in\S_\mathcal{N}(x_1^\star)\subset E_0^\text{KMK}$, $x_2^\star$ is an equilibrium of \eqref{sys:KMK} and thus $x(t,x_2^\star)=x_2^\star\in\S_\mathcal{N}(x_1^\star)$ for all $t\geq t_0$.
+As a consequence, $x_1^\star$ is locally stable
+\vfill
+$\Rightarrow$ any open neighbourhood $\mathcal{N}(x_1^\star)$ contains $\S_\mathcal{N}=\mathcal{N}(x_1^\star)\cap E_0^\text{KMK}$
+\vfill
+Consider, then, some $x_2^\star\in\S_\mathcal{N}$.
+Since $x_2^\star\in\S_\mathcal{N}$, $x_2^\star$ is an equilibrium and as a consequence, $\lim_{t\to\infty}x(t,x_2^\star)=x_2^\star$.
+Therefore, any open neighbourhood of $x_1^\star$ contains points $x_0$ not such that $\lim_{t\to\infty}x(t,x_0)=x_1^\star$ and it follows that $x_1^\star$ is locally stable but not locally asymptotically stable.
+\end{frame}
+
+\begin{frame}
+It is important to make a remark here concerning the use of \emph{next generation matrix} methods in this context.
+Consider, e.g., the method in \cite{VdDWatmough2002}.
+There, one assumption (namely, assumption A5) is that the disease-free equilibrium be \emph{locally asymptotically stable}, with the assumption that all eigenvalues of the linearisation near a disease-free equilibrium have negative real parts.
+\end{frame}
+
 
 \begin{frame}{Another approach -- Study $dI/dS$}
   \begin{align}
@@ -2194,5 +2281,9 @@ So we define
 \end{frame}
 
 
+\begin{frame}{Bibliography}
+\bibliographystyle{apalike}
+\bibliography{/home/jarino/github/bib-files/math,/home/jarino/github/bib-files/math_epi}
+\end{frame}
 
 \end{document}
