@@ -1,12 +1,12 @@
 %\SweaveUTF8
 \documentclass[aspectratio=43]{beamer}
 
-\include{slides_setup_nonLightBoard_whiteBG.tex}
+\input{slides_setup_nonLightBoard_whiteBG.tex}
 
 \title{Introduction to mathematical epidemiology}
-\subtitle{Durban -- Lecture 01}
+\subtitle{Arba Minch -- Course 01}
 \author{Julien Arino}
-\date{September 2023}
+\date{December 2023}
 
 \begin{document}
 \SweaveOpts{concordance=TRUE}

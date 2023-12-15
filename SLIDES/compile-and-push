@@ -1,6 +1,7 @@
 #!/bin/bash
 
-for f in lecture-*.Rnw
+# Compile all course files
+for f in course-*.Rnw
 do
   # Remove concordance before sweaving
   sed -i 's/concordance\=TRUE/concordance\=FALSE/g' $f
@@ -12,3 +13,7 @@ do
   # Reactivate concordance
   sed -i 's/concordance\=FALSE/concordance\=TRUE/g' $f
 done
+
+# Commit *.Rnw and *.pdf only
+git commit SLIDES/*.Rnw SLIDES/*.pdf -m "Update slides"
+git push

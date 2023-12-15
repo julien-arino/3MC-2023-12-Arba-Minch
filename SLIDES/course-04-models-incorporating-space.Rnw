@@ -1,7 +1,7 @@
 %\SweaveUTF8
 \documentclass[aspectratio=43]{beamer}
 
-\include{slides_setup_nonLightBoard_whiteBG.tex}
+\input{slides_setup_nonLightBoard_whiteBG.tex}
 
 \title{Models incorporating a spatial component}
 \subtitle{Lecture 04}

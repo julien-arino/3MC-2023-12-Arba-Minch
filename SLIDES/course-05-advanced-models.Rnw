@@ -2,7 +2,7 @@
 \documentclass[aspectratio=43]{beamer}
 \usepackage{Sweave}
 
-\include{slides_setup_nonLightBoard_whiteBG.tex}
+\input{slides_setup_nonLightBoard_whiteBG.tex}
 
 \title{Taking complex processes into account: advanced models}
 \subtitle{Durban -- Lecture 05}

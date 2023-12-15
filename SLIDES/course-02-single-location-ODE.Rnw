@@ -1,7 +1,7 @@
 %\SweaveUTF8
 \documentclass[aspectratio=169]{beamer}
 
-\include{slides_setup_nonLightBoard_whiteBG.tex}
+\input{slides_setup_nonLightBoard_whiteBG.tex}
 
 \title{Examples of single location, single population models using ordinary differential equations}
 \subtitle{Durban -- Lecture 02}

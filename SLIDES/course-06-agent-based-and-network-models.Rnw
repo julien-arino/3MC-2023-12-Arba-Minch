@@ -2,7 +2,7 @@
 \documentclass[aspectratio=43]{beamer}
 \usepackage{Sweave}
 
-\include{slides_setup_nonLightBoard_whiteBG.tex}
+\input{slides_setup_nonLightBoard_whiteBG.tex}
 
 \title{Agent-based and network models}
 \subtitle{Lecture 06}
