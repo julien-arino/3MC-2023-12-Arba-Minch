@@ -8,7 +8,7 @@ do
   sed -i 's/concordance\=TRUE/concordance\=FALSE/g' $f
   # Now sweave
   R CMD Sweave $f
-  sed -i 's/\\SweaveOpts\{concordance\=TRUE\}//g' "${f%.tex}"
+  sed -i 's/\\SweaveOpts\{concordance\=FALSE\}//g' "${f%.tex}"
   xelatex "${f%.tex}"
   xelatex "${f%.tex}"
   # Reactivate concordance
