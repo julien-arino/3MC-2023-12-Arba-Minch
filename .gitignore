@@ -50,6 +50,9 @@ rsconnect/
 
 # LaTeX related stuff
 *.tex
+*.aux
+*.bbl
+*.fdb_latexmk
 *.log
 *.nav
 *.snm
