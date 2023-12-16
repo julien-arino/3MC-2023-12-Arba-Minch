@@ -4,9 +4,9 @@
 \input{slides_setup_nonLightBoard_whiteBG.tex}
 
 \title{Examples of single location, single population models using ordinary differential equations}
-\subtitle{Durban -- Lecture 02}
+\subtitle{Arba Minch -- Course 02}
 \author{Julien Arino}
-\date{September 2023}
+\date{December 2023}
 
 
 \begin{document}

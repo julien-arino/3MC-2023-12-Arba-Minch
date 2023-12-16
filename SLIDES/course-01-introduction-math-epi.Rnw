@@ -194,8 +194,8 @@ $\implies$ $I(t)$ in an epidemiological model is \textbf{prevalence}, not \textb
 \begin{tabular}{ccp{6cm}}
 Period & Phase & Description \\
 \hline
-\rowcolor{lgreen} \color{black}Interpandemic & \color{black}1 & \color{black} No animal influenza virus circulating among animals has been reported to cause infection in humans \\
-\rowcolor{lgreen} & \color{black}2 & \color{black}Animal influenza virus circulating in domesticated or wild animals known to have caused infection in humans and therefore considered a specific potential pandemic threat
+\rowcolor{lgreen} Interpandemic & 1 & No animal influenza virus circulating among animals has been reported to cause infection in humans \\
+\rowcolor{lgreen} & 2 & Animal influenza virus circulating in domesticated or wild animals known to have caused infection in humans and therefore considered a specific potential pandemic threat
 \end{tabular}
 \end{frame}
 
@@ -203,8 +203,8 @@ Period & Phase & Description \\
 \begin{tabular}{ccp{6cm}}
 Period & Phase & Description \\
 \hline 
-\rowcolor{yellow} \color{black}Pandemic alert & \color{black}3 & \color{black}Animal or human-animal influenza reassortant virus has caused sporadic cases or small clusters of disease in people, but has not resulted in H2H transmission sufficient to sustain community-level outbreaks \\
-\rowcolor{yellow} & \color{black}4 & \color{black}Human-to-human transmission of an animal or human-animal influenza reassortant virus able to sustain community-level outbreaks has been verified 
+\rowcolor{yellow} Pandemic alert & 3 & Animal or human-animal influenza reassortant virus has caused sporadic cases or small clusters of disease in people, but has not resulted in H2H transmission sufficient to sustain community-level outbreaks \\
+\rowcolor{yellow} & 4 & Human-to-human transmission of an animal or human-animal influenza reassortant virus able to sustain community-level outbreaks has been verified 
 \end{tabular}
 \end{frame}
 
@@ -212,8 +212,8 @@ Period & Phase & Description \\
 \begin{tabular}{ccp{6cm}}
     Period & Phase & Description \\
     \hline 
-\rowcolor{orange} \color{black}Pandemic alert & \color{black} 5 & \color{black} Same identified virus has caused sustained community-level outbreaks in at least 2 countries in 1 WHO region \\
-\rowcolor{lred} \color{black}Pandemic & \color{black}6 & \color{black}In addition to criteria in Phase 5, same virus has caused sustained community-level outbreaks in at least 1 other country in another WHO region
+\rowcolor{orange} Pandemic alert & 5 & Same identified virus has caused sustained community-level outbreaks in at least 2 countries in 1 WHO region \\
+\rowcolor{lred} Pandemic & 6 & In addition to criteria in Phase 5, same virus has caused sustained community-level outbreaks in at least 1 other country in another WHO region
 \end{tabular}
 \end{frame}
 
@@ -509,7 +509,7 @@ If we are interested in the possibility that an epidemic occurs
 \begin{frame}{The state variables}
 We formulate the model as a system of \defword{differential equations}
 \vfill
-Differential equationsL unknowns are \emph{functions} (instead of scalars, like in algebraic equations)
+Differential equations: unknowns are \emph{functions} (instead of scalars, like in algebraic equations)
 \vfill
 At time $t\geq 0$ (we typically assume time starts at $t=0$, but could also consider $t\geq t_0>0$), the \defword{state variables}, in the current model, are the numbers of individuals who are
 \begin{itemize}
@@ -544,7 +544,7 @@ For now, just know the most common incidence functions are
 
 
 \begin{frame}{The Kermack-McKendrick model}
-This model is typically called the Kermack-McKendrick (KMK) SIR model 
+This model is typically called the \defword{Kermack-McKendrick} (KMK) \defword{SIR model} 
   \begin{align*}
     \frac{d}{dt}S(t) &= -\beta S(t)I(t) \\
     \frac{d}{dt}I(t) &= \beta S(t)I(t)-\gamma I(t) \\
@@ -570,9 +570,9 @@ As indicated, we often drop dependence on $t$ of the state variables; we also wr
 \vfill
 \begin{subequations}\label{sys:KMK}
   \begin{align}
-    S' &= -\beta SI \label{sys:KMK_dS} \\
-    I' &= \beta SI-\gamma I \label{sys:KMK_dI} \\
-    R' &= \gamma I \label{sys:KMK_dR}
+    S\pprime &= -\beta SI \label{sys:KMK_dS} \\
+    I\pprime &= \beta SI-\gamma I \label{sys:KMK_dI} \\
+    R\pprime &= \gamma I \label{sys:KMK_dR}
     \end{align}  
 \end{subequations}
 \vfill
@@ -597,15 +597,18 @@ As indicated, we often drop dependence on $t$ of the state variables; we also wr
   \vfill
   Furthermore, the total population (including deceased who are also in $R$) $N=S+I+R$ satisfies
   \[
-  N'=(S+I+R)'=0
+  N\pprime=(S+I+R)'=0
   \]
-  Thus, $N$ is constant and the dynamics of $R$ can be deduced from $R=N-(S+I)$
-  \vfill
-  So we now consider
+  Thus, $N$ is constant and 
+  \begin{equation}\label{eq:constant_population}
+    S(t)+I(t)+R(t)=N_0,\quad t\geq 0.
+  \end{equation}
+  so the dynamics of $R$ can be deduced from $R=N-(S+I)$.
+  So we can consider
   \begin{subequations}\label{sys:KMK_2d}
     \begin{align}
-      S' &= -\beta SI \label{sys:KMK_2d_dS}\\
-      I' &= \beta SI-\gamma I  \label{sys:KMK_2d_dI}
+      S\pprime &= -\beta SI \label{sys:KMK_2d_dS}\\
+      I\pprime &= \beta SI-\gamma I  \label{sys:KMK_2d_dI}
       \end{align}
     \end{subequations}
 \end{frame}
@@ -614,9 +617,9 @@ As indicated, we often drop dependence on $t$ of the state variables; we also wr
   Let us consider the equilibria of
   \begin{subequations}
     \begin{align}
-      S' &= -\beta SI 
+      S\pprime &= -\beta SI 
       \tag{\ref{sys:KMK_2d_dS}} \\
-      I' &= (\beta S-\gamma)I  
+      I\pprime &= (\beta S-\gamma)I  
       \tag{\ref{sys:KMK_2d_dI}}
     \end{align}
   \end{subequations}
@@ -637,6 +640,33 @@ As indicated, we often drop dependence on $t$ of the state variables; we also wr
 \end{frame}
 
 \begin{frame}{What is the problem with non-isolated EP?}
+\begin{proposition}\label{prop:EP_KMK}
+The Kermack-McKendrick model SIR model \eqref{sys:KMK} has the continuum of equilibria
+\begin{equation}
+\label{eq:DFE_KMK}
+    E_0^\text{KMK}:=\left\{
+    (S^\star,I^\star,R^\star)=(S_\infty,0,N_0-S_\infty),\quad S_\infty\in[0,N_0]
+    \right\}
+\end{equation}
+\end{proposition}
+\end{frame}
+
+\begin{frame}{Proof}
+Let us consider \eqref{sys:KMK} and start with $I=I^\star=0$.
+Substitute this value into \eqref{sys:KMK_dS} at equilibrium, giving $0 = -\gamma S^\star I^\star(=0)$, meaning that any value of $S^\star$ satisfies this relation. From the conservation of the total population \eqref{eq:constant_population}, the equilibrium $E_0^\text{KMK}$ takes the form given by \eqref{eq:DFE_KMK}
+\vfill
+Now consider $S=S^\star=\gamma/\beta$. Substituting this value into \eqref{sys:KMK_dS} at equilibrium gives $0 = -\gamma I^\star$, from which it follows that $I^\star=0$, and, using the conservation of total population \eqref{eq:constant_population},
+\begin{equation}\label{eq:DFE_KMK_tmp}
+    (S^\star,I^\star,R^\star)=\left(
+    \frac{\gamma}{\beta},0,N_0-\frac{\gamma}{\beta}
+    \right)
+\end{equation}
+is an equilibrium of \eqref{sys:KMK}. 
+The equilibrium \eqref{eq:DFE_KMK_tmp} is biologically relevant only when $N_0-\gamma/\beta\geq 0$.
+Note that \eqref{eq:DFE_KMK} includes \eqref{eq:DFE_KMK_tmp} when the latter is biologically relevant
+\end{frame}
+
+\begin{frame}
 Adapting slightly the definitions in \cite{HirschSmale1974}, consider the ordinary differential equation
 \begin{equation}\label{eq:ODE}
     x' = f(x)
@@ -647,28 +677,20 @@ Denote $x(t,x_0)$ the solution to \eqref{eq:ODE} through the initial value $x(t_
 \end{frame}
 
 \begin{frame}
-A point $x^\star\in W$ is an \emph{equilibrium} if $f(x^\star)=0$
+A point $x^\star\in W$ is an \defword{equilibrium} if $f(x^\star)=0$
 \vfill
 \begin{definition}[Locally stable equilibrium]\label{def:LS_EP}
-An equilibrium point $x^\star$ of \eqref{eq:ODE} is \emph{locally stable} if for every neighbourhood $\mathcal{N}(x^\star)$ of $x^\star$ in $W$, there is a neighbourhood $\mathcal{N}_1\subseteq\mathcal{N}(x^\star)$ of $x^\star$ such that every solution $x(t,x_0)$ with $x_0\in\mathcal{N}_1$ is defined and in $\mathcal{N}(x^\star)$ for all $t>t_0$
+An equilibrium point $x^\star$ of \eqref{eq:ODE} is \defword{locally stable} (LS) if for every neighbourhood $\mathcal{N}(x^\star)$ of $x^\star$ in $W$, there is a neighbourhood $\mathcal{N}_1\subseteq\mathcal{N}(x^\star)$ of $x^\star$ such that every solution $x(t,x_0)$ with $x_0\in\mathcal{N}_1$ is defined and in $\mathcal{N}(x^\star)$ for all $t>t_0$
 \end{definition}
 \vfill
 \begin{definition}[Locally asymptotically stable equilibrium]
-If $\mathcal{N}_1$ can be chosen so that in addition to the properties in Definition~\ref{def:LS_EP}, $\lim_{t\to\infty}x(t,x_0)=x^\star$ for all $x_0\in\mathcal{N}_1$, then $x^\star$ is locally asymptotically stable
+If $\mathcal{N}_1$ can be chosen so that in addition to the properties in Definition~\ref{def:LS_EP}, $\lim_{t\to\infty}x(t,x_0)=x^\star$ for all $x_0\in\mathcal{N}_1$, then $x^\star$ is \defword{locally asymptotically stable} (LAS)
 \end{definition}
 \end{frame}
 
 \begin{frame}
-The problem with the DFE \eqref{eq:DFE_KMK} of \eqref{sys:KMK} is that they are not \emph{isolated}: any (open) neighbourhood of an equilibrium contains infinitely many other equilibria; see Figure~\ref{fig:neighbourhood_KMK}
+DFE \eqref{eq:DFE_KMK} of \eqref{sys:KMK} are not \defword{isolated}: any (open) neighbourhood of an equilibrium contains infinitely many other equilibria
 \vfill
-The consequence of this is that stability cannot be asymptotic
-\end{frame}
-
-
-
-\begin{frame}
-\begin{figure}
-    \centering
     \begin{tikzpicture}
     \coordinate (SN) at (4,0);
     \coordinate (RN) at (0,4);
@@ -691,17 +713,18 @@ The consequence of this is that stability cannot be asymptotic
     % The equilibrium
     \draw (xs) circle (0.1cm) node[above right] {$x^\star$};
     \shade[ball color = red, opacity = 1] (xs) circle (0.1cm);
-    \end{tikzpicture}    
-    \caption{Ball: part of a neighbourhood of an equilibrium point $x^\star\in E_0^\text{KMK}$ lying on the $S-R$ plane (the neighbourhood also extends above and below the $S-R$ plane in the $I$ direction). 
-    The thin line is $E_0^\text{KMK}$, while the thick line is the intersection of $E_0^\text{KMK}$ with the neighbourhood of $x^\star$.}
-    \label{fig:neighbourhood_KMK}
-\end{figure}
+    \end{tikzpicture} 
+    \vfill
+Neighbourhood $\N(x^\star)$ of $x^\star\in E_0^\text{KMK}$ lying on the $S-R$ plane (the neighbourhood extends above and below the $S-R$ plane in the $I$ direction, not shown here). 
+The thin line is $E_0^\text{KMK}$, the thick line is $E_0^\text{KMK}\cap\N(x^\star)$
 \end{frame}
 
 \begin{frame}
 \begin{proposition}
-Consider a disease-free equilibrium $x^\star\in E_0^\text{KMK}$ of \eqref{sys:KMK}. Then $x^\star$ is locally stable but not locally asymptotically stable  
+Consider a disease-free equilibrium $x^\star\in E_0^\text{KMK}$ of \eqref{sys:KMK}. Then $x^\star$ is LS but not LAS  
 \end{proposition}
+\vfill
+This means in particular that considering the Jacobian of \eqref{sys:KMK} at the DFE \textbf{makes no sense}!
 \end{frame}
 
 \begin{frame}{Proof}
@@ -714,20 +737,24 @@ $\Rightarrow$ any open neighbourhood $\mathcal{N}(x_1^\star)$ contains $\S_\math
 \vfill
 Consider, then, some $x_2^\star\in\S_\mathcal{N}$.
 Since $x_2^\star\in\S_\mathcal{N}$, $x_2^\star$ is an equilibrium and as a consequence, $\lim_{t\to\infty}x(t,x_2^\star)=x_2^\star$.
-Therefore, any open neighbourhood of $x_1^\star$ contains points $x_0$ not such that $\lim_{t\to\infty}x(t,x_0)=x_1^\star$ and it follows that $x_1^\star$ is locally stable but not locally asymptotically stable.
+Therefore, any open neighbourhood of $x_1^\star$ contains points $x_0$ not such that $\lim_{t\to\infty}x(t,x_0)=x_1^\star$ $\implies$ $x_1^\star$ is LS but not LAS
 \end{frame}
 
-\begin{frame}
-It is important to make a remark here concerning the use of \emph{next generation matrix} methods in this context.
-Consider, e.g., the method in \cite{VdDWatmough2002}.
-There, one assumption (namely, assumption A5) is that the disease-free equilibrium be \emph{locally asymptotically stable}, with the assumption that all eigenvalues of the linearisation near a disease-free equilibrium have negative real parts.
+\begin{frame}{The next generation matrix method in this context}
+Consider the method in \cite{VdDWatmough2002}
+\vfill
+To construct $\R_0$, they require \emph{local stability}
+\vfill
+Theorem 2 in \cite{VdDWatmough2002} pertaining to LAS, on the other hand, has one assumption (assumption A5) that the DFE be \emph{locally asymptotically stable}, with the assumption that all eigenvalues of the linearisation near a disease-free equilibrium have negative real parts
+\vfill
+Clearly, this cannot be true with \eqref{sys:KMK}
 \end{frame}
 
 
 \begin{frame}{Another approach -- Study $dI/dS$}
   \begin{align}
-  S' &= -\beta SI \tag{\ref{sys:KMK_2d_dS}}\\
-  I' &= \beta SI-\gamma I  \tag{\ref{sys:KMK_2d_dI}}
+  S\pprime &= -\beta SI \tag{\ref{sys:KMK_2d_dS}}\\
+  I\pprime &= \beta SI-\gamma I  \tag{\ref{sys:KMK_2d_dI}}
   \end{align}
   \vfill
   What is the dynamics of $dI/dS$? 
@@ -1467,13 +1494,13 @@ To make $\R_{\text{v}}$ less than 1
 \begin{minipage}{0.7\textwidth}
   \begin{subequations} \label{sys:SIRS_base}
   \begin{align}
-    S' &= b(N)+\nu R-dS-\beta SI \label{sys:SIRS_base_dS} \\
-    I' &= \beta SI-(d+\gamma) I \label{sys:SIRS_base_dI} \\
-    R' &= \gamma I-(d+\nu)R \label{sys:SIRS_base_dR}
+    S\pprime &= b(N)+\nu R-dS-\beta SI \label{sys:SIRS_base_dS} \\
+    I\pprime &= \beta SI-(d+\gamma) I \label{sys:SIRS_base_dI} \\
+    R\pprime &= \gamma I-(d+\nu)R \label{sys:SIRS_base_dR}
   \end{align}    
   \end{subequations}
   \vskip1cm
-  Consider the initial value problem consisting in \eqref{sys:SIRS_base} to which we couple initial conditions $S(0)=S_0\geq 0$, $I(0)=I_0\geq 0$ and $R(0)=R_0\geq 0$
+  Consider the initial value problem consisting in \eqref{sys:SIRS_base} to which we adjoin initial conditions $S(0)=S_0\geq 0$, $I(0)=I_0\geq 0$ and $R(0)=R_0\geq 0$
   \vskip1cm
   Typically, we assume $N_0=S_0+I_0+R_0>0$ to avoid a trivial case
   \end{minipage}
@@ -1501,7 +1528,7 @@ N(t)=S(t)+I(t)+R(t)
 \begin{frame}{Behaviour of the total population}
 Summing the equations in \eqref{sys:SIRS_base}
 \begin{equation}\label{eq:total_pop_general}
-N'=b(N)-dN
+N\pprime=b(N)-dN
 \end{equation}
 \vfill
 There are three common ways to define $b(N)$ in \eqref{eq:total_pop_general}
@@ -1520,7 +1547,7 @@ If $b(N)=bN$, then birth in \eqref{eq:total_pop_general} satisfies $N'/N=b$; we 
 \vfill
 In this case, \eqref{eq:total_pop_general} takes the form
 \[
-N'=bN-dN=(b-d)N
+N\pprime=bN-dN=(b-d)N
 \]
 with initial condition $N(0)=N_0$
 \vfill
@@ -1569,13 +1596,13 @@ Thus there are 3 possibilities:
 \begin{minipage}{0.7\textwidth}
   \begin{subequations} \label{sys:SIRS}
   \begin{align}
-    S' &= b+\nu R-dS-\beta SI \label{sys:SIRS_dS} \\
-    I' &= \beta SI-(d+\gamma) I \label{sys:SIRS_dI} \\
-    R' &= \gamma I-(d+\nu)R \label{sys:SIRS_dR}
+    S\pprime &= b+\nu R-dS-\beta SI \label{sys:SIRS_dS} \\
+    I\pprime &= \beta SI-(d+\gamma) I \label{sys:SIRS_dI} \\
+    R\pprime &= \gamma I-(d+\nu)R \label{sys:SIRS_dR}
   \end{align}    
   \end{subequations}
   \vskip1cm
-  Consider the initial value problem consisting in \eqref{sys:SIRS} to which we couple initial conditions $S(0)=S_0\geq 0$, $I(0)=I_0\geq 0$ and $R(0)=R_0\geq 0$
+  Consider the initial value problem consisting in \eqref{sys:SIRS} to which we adjoin initial conditions $S(0)=S_0\geq 0$, $I(0)=I_0\geq 0$ and $R(0)=R_0\geq 0$
   \vskip1cm
   Typically, we assume $N_0=S_0+I_0+R_0>0$ to avoid a trivial case
   \end{minipage}
@@ -1608,13 +1635,13 @@ If we had instead considered an incidence of the form $f(S,I,N)=\beta SI/N$ and,
 
 
 \begin{frame}{Invariance of $\IR_+^3$ under the flow (1)}
-Let us start by assuming that $I(0)=I_0=0$. Then \eqref{sys:SIRS_dI} remains $I'=0$, meaning that the $SR$-plane (i.e., the set $\{I=0\}$) is positively invariant under the flow of \eqref{sys:SIRS}
+Let us start by assuming that $I(0)=I_0=0$. Then \eqref{sys:SIRS_dI} remains $I\pprime=0$, meaning that the $SR$-plane (i.e., the set $\{I=0\}$) is positively invariant under the flow of \eqref{sys:SIRS}
 \vfill
 On that plane, \eqref{sys:SIRS} reduce to
 \begin{subequations}\label{sys:SIRS_on_Ieq0}
 \begin{align}
-S' &= b+\nu R-dS \\
-R' &= -(d+\nu)R
+S\pprime &= b+\nu R-dS \\
+R\pprime &= -(d+\nu)R
 \end{align}    
 \end{subequations}
 \vfill
@@ -1628,7 +1655,7 @@ We saw that $I(t)>0$ if $I(0)>0$
 \vfill
 Suppose now that $S=0$. Equation \eqref{sys:SIRS_dS} is then
 $$
-S' = b+\nu R>0
+S\pprime = b+\nu R>0
 $$
 \vfill
 So if $S(0)=S_0>0$, then $S(t)>0$ for all $t$. If, on the other hand, $S_0=0$, then $S(t)>0$ for $t>0$ small; from what we just saw, this is then also true for all $t>0$
@@ -1659,14 +1686,16 @@ The model is therefore satisfactory in that it does not allow solutions to becom
 \begin{frame}{Remark -- Know your audience} 
 This reasoning has its place in an MSc of PhD manuscript: you need to demonstrate that you know what to do and how to do it
 \vfill
-In a research paper, this is not really necessary and actually often superfluous; \emph{it is easy to show that solutions exist uniquely and that the positive orthant is invariant under the flow of the system} is typically sufficient
+In a research paper, this is not really necessary and actually often superfluous; the statement \emph{it is easy to show that solutions exist uniquely and that the positive orthant is invariant under the flow of the system} is typically sufficient
+\vfill
+(However, be sure to cover your bases: don't show the proof in the paper but have it in your notes.. \emph{it is easy to show} can be a dangerous statement if it is not easy...)
 \end{frame}
 
 
 \begin{frame}{The total population is asymptotically constant}
 Since $b(N)=b$, the total population equation \eqref{eq:total_pop_general} takes the form
 \[
-N' = b-dN
+N\pprime = b-dN
 \]
 This equation has a unique equilbrium $N^\star=b/d$ and it is very easy to check that this equilibrium is GAS: this is a scalar autonomous equation, so solutions are monotone; they increase to $N^\star$ if $N_0<N^\star$ and decrease to $N^\star$ if $N_0>N^\star$
 \vfill
@@ -1828,7 +1857,7 @@ N^\star-(S^\star+I^\star)
 \end{frame}
 
 \begin{frame}
-As you can probably guess, if $\R_0>1$, then $\bE_\star$ is not only biologically relevant by actually also LAS
+As you can probably guess, if $\R_0>1$, then $\bE_\star$ is not only biologically relevant but actually also LAS
 \vfill
 Recall the Jacobian
 \begin{align}
@@ -1971,7 +2000,7 @@ crop_figure("FIGS/lecture-01-SIRS_one_sim_prevalence")
 
 What I advise not to do: illustrate a mathematical result without adding anything to the result itself
 \vfill
-Let us make things a bit better. See the \href{https://raw.githubusercontent.com/julien-arino/petit-cours-epidemio-mathematique/main/CODE/ODE_SIS_multiple_solutions.R}{code}
+Let us make things a bit better. See the \href{https://raw.githubusercontent.com/julien-arino/3MC-2023-12-Arba-Minch/main/CODE/ODE_SIS_multiple_solutions.R}{code}
 \end{frame}
 
 <<SIRS_3_sims_prevalence,eval=TRUE,echo=FALSE,fig=TRUE,width=8,height=5,include=FALSE>>=
@@ -2066,7 +2095,7 @@ We could continue, but with a model this simple, there is little  more to do: th
 \vfill
 We are going to show something important: the bifurcation diagram
 \vfill
-We saw that when $\R_0<1$, $I\to 0$, whereas when $\R_0>1$, $I\to (1-1/\R_0)N$. Let us represent this (\href{https://raw.githubusercontent.com/julien-arino/petit-cours-epidemio-mathematique/main/CODE/SIS_PEI_vs_R0.R}{code})
+We saw that when $\R_0<1$, $I\to 0$, whereas when $\R_0>1$, $I\to (1-1/\R_0)N$. Let us represent this (\href{https://raw.githubusercontent.com/julien-arino/3MC-2023-12-Arba-Minch/main/CODE/SIS_PEI_vs_R0.R}{code})
 \end{frame}
 
 <<SIRS_bifurcation_R0,eval=TRUE,echo=FALSE,fig=TRUE,width=8,height=5,include=FALSE>>=
@@ -2145,13 +2174,13 @@ Take SIRS model \eqref{sys:SIRS} and assume the following
 \begin{minipage}{0.7\textwidth}
   \begin{subequations} \label{sys:SIR_vacc}
   \begin{align}
-    S' &= (1-p)b+\nu R-dS-\beta SI \label{sys:SIR_vacc_dS} \\
-    I' &= \beta SI-(d+\gamma) I \label{sys:SIR_vacc_dI} \\
-    R' &= bp+\gamma I-(d+\nu)R \label{sys:SIR_vacc_dR}
+    S\pprime &= (1-p)b+\nu R-dS-\beta SI \label{sys:SIR_vacc_dS} \\
+    I\pprime &= \beta SI-(d+\gamma) I \label{sys:SIR_vacc_dI} \\
+    R\pprime &= bp+\gamma I-(d+\nu)R \label{sys:SIR_vacc_dR}
   \end{align}    
   \end{subequations}
   \vskip1cm
-  Consider the initial value problem consisting in \eqref{sys:SIR_vacc} to which we couple initial conditions $S(0)=S_0\geq 0$, $I(0)=I_0\geq 0$ and $R(0)=R_0\geq 0$
+  Consider the initial value problem consisting in \eqref{sys:SIR_vacc} to which we adjoin initial conditions $S(0)=S_0\geq 0$, $I(0)=I_0\geq 0$ and $R(0)=R_0\geq 0$
   \vskip1cm
   Typically, we assume $N_0=S_0+I_0+R_0>0$ to avoid a trivial case
   \end{minipage}
@@ -2242,7 +2271,7 @@ So we define
   \vfill
   By vaccinating a fraction $p>1-1/\R_0$ of newborns, we thus are in a situation where the disease is eventually eradicated
   \vfill
-  This is \defword{herd immunity}
+  This is \defword{herd immunity} (\emph{bis repetita})
 \end{frame}
 
 
