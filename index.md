@@ -13,7 +13,7 @@ Please note that at present, the slides are work in progress. I will be updating
 <ul>
 {% for file in site.static_files %}
   {% if file.path contains 'SLIDES' %}
-    {% if file.path contains 'lecture' %}
+    {% if file.path contains 'course' %}
       {% if file.path contains 'pdf' %}
         {% unless file.path contains 'FIGS' %}
           <li><a href="https://julien-arino.github.io/3MC-2023-12-Arba-Minch/SLIDES/{{ file.basename }}.pdf">{{ file.basename }}</a></li>
