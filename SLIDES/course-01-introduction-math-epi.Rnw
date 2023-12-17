@@ -3,7 +3,7 @@
 
 \input{slides_setup_nonLightBoard_whiteBG.tex}
 
-\title{Introduction to mathematical epidemiology}
+\title{Introduction to epidemiology and mathematical epidemiology}
 \subtitle{Arba Minch -- Course 01}
 \author{Julien Arino}
 \date{December 2023}

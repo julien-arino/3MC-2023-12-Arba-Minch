@@ -173,7 +173,7 @@ T^*_A=\min\left( T_{AB_1},T_{AB_2} \right)
 (where $^*$ indicates that a quantity is observable)
 \end{frame}
 
-\begin{frame}{Taux d'échec par type d'évènement}
+\begin{frame}{Failure rate by type of event}
 We have two (or more) types of events whose individual failure rates have to be accounted for
 \begin{align*}
 h_j(t) &= \lim_{\Delta t\to 0} \frac{\mathbb{P}( T<t+\Delta t, S=S_j | T\geq t)}{\Delta t} 
@@ -337,9 +337,12 @@ Here, we have $N'=0$ everywhere except at $t=\omega$, where it is undefined.
 \framesubtitle{Hypotheses}
 \begin{itemize}
 \item Individuals typically recover from the disease
+\vfill
 \item The disease does not confer immunity
+\vfill
 \item There is no birth or death (from the disease or natural) \newline\imply\;
 Constant total population $N\equiv N(t)=S(t)+I(t)$
+\vfill
 \item Infection is of \textbf{standard incidence} type
 \end{itemize}
 \end{frame}
@@ -516,7 +519,7 @@ p_{r1} & p_{r2} & \cdots & p_{rr}
 
 \begin{frame}{Stochastic matrices}
 \begin{definition}
-    The nonnegative $r\times r$ matrix $M$ is \textbf{stochastic} if $\sum_{j=1}^ra_{ij}=1$ for all $i=1,2,\dots, r$    
+    The nonnegative $r\times r$ matrix $M$ is (\defword{row}) \defword{stochastic} if $\sum_{j=1}^ra_{ij}=1$ for $i=1,2,\dots, r$    
 \end{definition}
 \vfill
 \begin{definition}
@@ -1258,8 +1261,11 @@ Read by row: if the process starts in $I_i$ (row $i-1$), probability that state 
 \vfill
 \begin{itemize}
     \item Compartmental ODE model focuses on flows into and out of compartments
+    \vfill
     \item ODE model has as many equations as there are compartments
+    \vfill
     \item Compartmental CTMC model focuses on transitions
+    \vfill
     \item CTMC model has as many transitions as there are arrows between (or into or out of) compartments
 \end{itemize}
 \end{frame}
@@ -1304,9 +1310,12 @@ Read by row: if the process starts in $I_i$ (row $i-1$), probability that state 
 \begin{frame}{SIS without demography}
     \begin{center}
         \begin{tabular}{cp{3cm}cc}
+          \toprule
             Transition & Effect & Weight & Probability \\
+            \midrule
             $S\to S-1$, $I\to I+1$ & new infection & $\beta SI$ & $\dfrac{\beta SI}{\beta SI+\gamma I}$ \\
-            $S\to S+1$, $I\to I-1$ & recovery of an infectious & $\gamma I$ & $\dfrac{\gamma I}{\beta SI+\gamma I}$
+            $S\to S+1$, $I\to I-1$ & recovery of an infectious & $\gamma I$ & $\dfrac{\gamma I}{\beta SI+\gamma I}$ \\
+            \bottomrule
         \end{tabular}
     \end{center}
     \vfill
@@ -1317,12 +1326,15 @@ Read by row: if the process starts in $I_i$ (row $i-1$), probability that state 
 \begin{frame}{SIS with demography}
     \begin{center}
         \begin{tabular}{p{3cm}p{3cm}cc}
+        \toprule
             Transition & Effect & Weight & Probability \\
+          \midrule
             $S\to S+1$ & birth of a susceptible & $b$ & $\frac{b}{b+d(S+I)+\beta SI+\gamma I}$ \\
             $S\to S-1$ & death of a susceptible & $dS$ & $\frac{dS}{b+d(S+I)+\beta SI+\gamma I}$ \\
             $S\to S-1$, $I\to I+1$ & new infection & $\beta SI$ & $\frac{\beta SI}{b+d(S+I)+\beta SI+\gamma I}$ \\
             $I\to I-1$ & death of an infectious & $dI$ & $\frac{dI}{b+d(S+I)+\beta SI+\gamma I}$ \\
-            $S\to S+1$, $I\to I-1$ & recovery of an infectious & $\gamma I$ & $\frac{\gamma I}{b+d(S+I)+\beta SI+\gamma I}$ 
+            $S\to S+1$, $I\to I-1$ & recovery of an infectious & $\gamma I$ & $\frac{\gamma I}{b+d(S+I)+\beta SI+\gamma I}$ \\
+            \bottomrule
         \end{tabular}
     \end{center}
 \vfill
@@ -1333,9 +1345,12 @@ States are $S,I$
 \begin{frame}[fragile]{Kermack \& McKendrick model}
     \begin{center}
         \begin{tabular}{cp{3cm}cc}
+        \toprule
             Transition & Effect & Weight & Probability \\
+            \midrule
             $S\to S-1$, $I\to I+1$ & new infection & $\beta SI$ & $\dfrac{\beta SI}{\beta SI+\gamma I}$ \\
-            $I\to I-1$, $R\to R+1$ & recovery of an infectious & $\gamma I$ & $\dfrac{\gamma I}{\beta SI+\gamma I}$ 
+            $I\to I-1$, $R\to R+1$ & recovery of an infectious & $\gamma I$ & $\dfrac{\gamma I}{\beta SI+\gamma I}$ \\
+            \bottomrule
         \end{tabular}
     \end{center}
     \vfill
@@ -1348,8 +1363,11 @@ States are $S,I$
 \begin{frame}{Gillespie's algorithm}
     \begin{itemize}
         \item A.k.a. the stochastic simulation algorithm (SSA)
+        \vfill
         \item Derived in 1976 by Daniel Gillespie
+        \vfill
         \item Generates possible solutions for CTMC
+        \vfill
         \item Extremely simple, so worth learning how to implement; there are however packages that you can use (see later)
     \end{itemize}
 \end{frame}
