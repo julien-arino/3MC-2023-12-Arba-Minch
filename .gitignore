@@ -53,6 +53,7 @@ rsconnect/
 *.aux
 *.bbl
 *.fdb_latexmk
+*.fls
 *.log
 *.nav
 *.out

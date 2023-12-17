@@ -53,6 +53,8 @@ library(deSolve)
 %%%%%%%%%%%%%%%%%%%%%%%
 \subsection{The SLIAR model}
 
+\maxFrameImage{FIGS/Arino-etal-SLIAR.png}
+
 \begin{frame}
 SIR is a little too simple for many diseases:
 \begin{itemize}
@@ -61,10 +63,7 @@ SIR is a little too simple for many diseases:
 \end{itemize}
 \vfill
 $\implies$ model with SIR but also L(atent) and (A)symptomatic individuals, in which I are now symptomatic individuals
-\vfill
-Arino, Brauer, PvdD, Watmough \& Wu, \href{http://dx.doi.org/10.1098/rsif.2006.0112}{Simple models for containment of a pandemic}, \emph{Journal of the Royal Society Interface} (2006)
 \end{frame}
-
 
 \begin{frame}
 \centering
@@ -123,9 +122,9 @@ S_0(\ln S_0-\ln S_\infty) =
 %%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Computing the final size more efficiently}
 
+\maxFrameImage{FIGS/Arino-etal-final-size.png}
+
 \begin{frame}{A method for computing $\mathcal{R}_0$ in epidemic models}
-\bbullet Arino, Brauer, van den Driessche, Watmough \& Wu, \href{https://julien-arino.github.io/assets/pdf/papers/2007_ArinoBrauerPvdDWatmoughWu-MBE4.pdf}{A final size relation for epidemic models}, \emph{Mathematical Biosciences and Engineering} (2007)
-\vfill
 \bbullet This method is not universal! It works in a relatively large class of models, but not everywhere
 \vfill
 \bbullet If it doesn't work, the next generation matrix method does work, \textbf{but} should be considered only for obtaining the reproduction number, not to deduce LAS
@@ -396,7 +395,28 @@ If $\bI_0=(L_0,I_0,A_0)$, then
 
 \begin{frame}{A model with vaccination}
 \centering
-\includegraphics[height=0.95\textheight]{FIGS/SLIR_epidemic_with_vaccination}
+\begin{tikzpicture}[auto, %node distance = 2cm, auto,
+	cloud/.style={minimum width={width("N-1")+2pt},
+		draw, ellipse,fill=gray!20}]
+    \node [cloud, fill=green!90] (SU) {$S_U$};
+    \node [cloud, below=2cmof SU, fill=green!90] (SV) {$S_V$};
+    \node [cloud, right=3cm of SU, fill=red!30] (LU) {$L_U$};
+    \node [cloud, right=3cm of SV, fill=red!30] (LV) {$L_V$};
+	\node [cloud, right=of LU, fill=red!90] (IU) {$I_U$};
+	\node [cloud, right=of LV, fill=red!90] (IV) {$I_V$};
+	\node [cloud, below right=of IU, fill=blue!90] (R) {$R$};
+    \node [cloud, above right=2cm of IU, draw=none, fill=none] (h1) {};
+    \node [cloud, below right=2cm of IV, draw=none, fill=none] (h2) {};
+	%% Infections
+	\path [line, very thick] (SU) to node [midway, above] (TextNode) {$\beta S_U(I_U+\sigma_II_V)$} (LU);
+	\path [line, very thick] (SV) to node [midway, above] (TextNode) {$\sigma_S\beta S_V(I_U+\sigma_II_V)$} (LV);
+	\path [line, very thick] (LU) to node [midway, above, sloped] (TextNode) {$\kappa_U L_U$} (IU);
+	\path [line, very thick] (LV) to node [midway, above, sloped] (TextNode) {$\kappa_V L_V$} (IV);
+	\path [line, very thick] (IU) to node [midway, above, sloped] (TextNode) {$f_U\alpha_U I_U$} (R);
+	\path [line, very thick] (IV) to node [midway, above, sloped] (TextNode) {$f_V\alpha_V I_V$} (R);
+    \path [line, very thick] (IU) to node [midway, above, sloped] (TextNode) {$(1-f_U)\alpha_U I_U$} (h1);
+    \path [line, very thick] (IV) to node [midway, below, sloped] (TextNode) {$(1-f_V)\alpha_V I_V$} (h2);
+\end{tikzpicture}
 \end{frame}  
 
 
