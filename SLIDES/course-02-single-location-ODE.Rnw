@@ -492,9 +492,9 @@ S_V(\infty) = \gamma S_U(0)\left(
 %%%%%%%%%%%%%%%%%%%%
 \subsection{Antiviral resistance}
 
+\maxFrameImage{FIGS/ArinoBowmanMoghadas.png}
+
 \begin{frame}{Adapting treatment to counter emergence of resistance}
-Arino, Bowman \& Moghadas, \href{https://bmcinfectdis.biomedcentral.com/counter/pdf/10.1186/1471-2334-9-8.pdf}{Antiviral resistance during pandemic influenza: implications for stockpiling and drug use}, \emph{BMC Infectious Disease} (2009)
-\vfill
 This work was undertaken at the request of the Public Health Agency of Canada during the pandemic preparadness phase prior to the 2009 p-H1N1 pandemic
 \vfill
 Problem: we have antivirals to use against influenza, either prophylactically or curatively. Using these antivirals may promote the emergence of antiviral-resistant strains. How do we minimise this risk?
@@ -565,10 +565,10 @@ Problem: we have antivirals to use against influenza, either prophylactically or
 %%%%%%%%%%%%%%%%%%%
 \subsection{A COVID-19 model}
 
+\maxFrameImage{FIGS/ArinoPortet-2020.png}
+
 \begin{frame}
-Arino \& Portet, \href{http://dx.doi.org/10.1016/j.idm.2020.04.002}{A simple model for COVID-19}, \emph{Infectious Disease Modelling} (2020)
-\vfill
-Extends the SLIAR model to take into account non-exponentially distributed stage durations (see lecture on Stochastic systems)
+Extends the SLIAR model to take into account non-exponentially distributed stage durations (see lecture on Stochastic epidemiological models)
 \end{frame}
 
 \begin{frame}{The original model (well, almost the first one)}
@@ -847,6 +847,8 @@ Meaning of the parameters:
 %%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Computing $\R_0$ more efficiently}
 
+\maxFrameImage{FIGS/PvdDWatmough2002.png}
+
 
 \frame{\frametitle{The basic reproduction number $\R_0$}
 Used frequently in epidemiology (not only math epi)
@@ -1094,8 +1096,10 @@ SI & $ \frac{\bar f_I}{d+\gamma}$
 %%%%%%%%%%%%%%%%
 \subsection{Global properties of the SLIRS model}
 
+\maxFrameImage{FIGS/Korobeinikov-2004.png}
+
 \frame{\frametitle{Lyapunov function for SLIR and SLIS}
-(A. Korobeinikov) Consider an SLIR in constant population (normed to 1), with vertical transmission.
+Consider an SLIR in constant population (normed to 1), with vertical transmission
 \begin{subequations}\label{sys:SEIR_vert_transmission}
 \begin{align}
 S\pprime &= d-\beta SI -pdI-qdL-dS \\
@@ -1104,9 +1108,9 @@ I\pprime &= \varepsilon L-(\gamma+d)I
 \end{align}
 \end{subequations}
 \vfill
-$p$ proportion of progeny of $I$ that are $I$ at birth, $q$ proportion of progeny of $L$ that are $L$ at birth.
+$p$ proportion of progeny of $I$ that are $I$ at birth, $q$ proportion of progeny of $L$ that are $L$ at birth
 \vfill
-$R$ does not play a role in the dynamics of \eqref{sys:SEIR_vert_transmission}, it is not shown.
+$R$ does not play a role in the dynamics of \eqref{sys:SEIR_vert_transmission}, it is not shown
 }
 
 \frame{\frametitle{Equilibria}
@@ -1148,6 +1152,8 @@ V=\sum a_i(x_i-x_i^\star \ln x_i)
 \end{itemize}
 \end{theorem}
 }
+
+\maxFrameImage{FIGS/LiMuldowneyPvdD.png}
 
 \begin{frame}{Li, Muldowney and van den Driessche} 
 Study an SLIRS model with incidence of the form
@@ -1230,7 +1236,7 @@ Then there are no closed rectifiable curve that is invariant under \eqref{sys:SL
 \subsection{SLIRS in variable population}
 
 
-\begin{frame}{Liu, Levin et Iwasa}
+\begin{frame}{Liu, Levin and Iwasa}
 SIRS of the form
 \begin{subequations}\label{sys:SIRS_LLI}
 \begin{align}
@@ -1269,6 +1275,9 @@ In the case where immunity is temporary (SLIRS), they find (numerically) a Hopf 
 %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%
 \subsection{A better vaccination model}
+
+\maxFrameImage{FIGS/ArinoMccluskeyPvdD.png}
+
 \begin{frame}{SLIRS with vaccination}
 \centering
   \def\skip{*2.5}
