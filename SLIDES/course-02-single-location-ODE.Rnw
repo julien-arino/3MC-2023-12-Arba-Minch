@@ -921,41 +921,146 @@ The matrix quickly becomes hard to deal with (size and absence of ``pattern'') a
 \end{itemize}
 }
 
-\frame{\frametitle{The next generation operator}
-Diekmann and Heesterbeek, characterized in the ODE context by van den Driessche and Watmough
+\begin{frame}{Preliminary setup of PvdD \& Watmough 2002}
+$x=(x_1,\ldots,x_n)^T$, $x_i\geq 0$, with the first $m<n$ compartments the infected ones
 \vfill
-Consider only individuals harbouring the pathogen, in a vector $\I$, and form the vectors
+$X_s$ the set of all disease free states: 
+\[
+X_s=\{x\geq 0| x_i=0, i=1,\ldots,m\}
+\]
+\vfill
+Distinguish new infections from all other changes in population
 \begin{itemize}
-\item
-$\F$ of infection fluxes
-\item
-$\V$ of other fluxes (with $-$ sign)
+\item $F_i(x)$ rate of appearance of new infections in compartment $i$
+\item $V_i^+(x)$ rate of transfer of individuals into compartment $i$ by all other means
+\item $V_i^-(x)$ rate of transfer of individuals out of compartment $i$
 \end{itemize}
-so that
-\[
-\I\pprime=\F-\V
-\]
 \vfill
-Then compute the Fr\'echet derivatives $D\F$ and $D\V$ with respect to the infected variables $\I$ and evaluate $F=D\F(DFE)$ and $V=D\V(DFE)$. Then
+Assume each function continuously differentiable at least twice in each variable
+\vfill
 \[
-\R_0=\rho(FV^{-1})
+x_i' = f_i(x)=F_i(x)-V_i(x),\quad i=1,\ldots,n
 \]
-where $\rho$ is the spectral radius
-}
+where $V_i=V_i^--V_i^+$
+\end{frame}
 
-\frame{\frametitle{Short summary of van den Driessche and Watmough}
-\begin{theorem}[van den Driessche and Watmough]\label{th:R0_VdDW}
-Suppose that the DFE exists. Let then $\R_0$ be defined by
+\begin{frame}{Some assumptions}
+\bbullet\textbf{(A1)}
+If $x\geq 0$, then $F_i,V_i^+,V_i^-\geq 0$ for $i=1,\ldots,n$
+\vfill
+Since each function represents a directed transfer of individuals, all are non-negative
+\vfill
+\bbullet\textbf{(A2)} 
+If $x_i=0$ then $V_i^-=0$. In particular, if $x\in X_s$, then $V_i^-=0$ for $i=1,\ldots,m$
+\vfill
+If a compartment is empty, there can be no transfer of individuals out of the compartment by death, infection, nor any other means
+\end{frame}
+
+\begin{frame}
+\bbullet \textbf{(A3)} $F_i=0$ if $i>m$
+\vfill
+The incidence of infection for uninfected compartments is zero
+\vfill
+\bbullet \textbf{A4} If $x\in X_s$ then $F_i(x)=0$ and $V_i^+(x)=0$ for $i=1,\ldots,m$
+\vfill
+Assume that if the population is free of disease then the population will remain free of disease; i.e., there is no (density independent) immigration of infectives
+\end{frame}
+
+\begin{frame}{One last assumption for the road}
+Let $x_0$ be a DFE of the system, i.e., a (locally asymptotically) stable equilibrium solution of the disease free model, i.e., the system restricted to $X_s$. We need not assume that the model has a unique DFE
+\vfill
+Let $Df(x_0)$ be the Jacobian matrix $[\partial f_i/\partial x_j]$. Some derivatives are one sided, since $x_0$ is on the domain boundary
+\vfill
+\textbf{(A5)} If $F(x)$ is set to zero, then all eigenvalues of $Df(x_0)$ have negative real parts
+\vfill
+Note: if the method ever fails to work, it is usually with (A5) that lies the problem
+\end{frame}
+
+\begin{frame}{Stability of the DFE as function of $\mathcal{R}_0$}
+\begin{theorem}\label{th:R0_VdDW}
+Suppose the DFE exists. Let then
 \[
-\R_0=\rho(FV^{-1})
+\mathcal{R}_0=\rho(FV^{-1})
 \]
-with matrices $F$ and $V$ as indicated before. Then,
+with matrices $F$ and $V$ obtained as indicated. Assume conditions (A1) through (A5) hold. Then
 \begin{itemize}
-\item if $\R_0<1$, the DFE is LAS,
-\item if $\R_0>1$, the DFE is unstable.
+\item if $\mathcal{R}_0<1$, then the DFE is LAS
+\item if $\mathcal{R}_0>1$, the DFE is unstable
 \end{itemize}
 \end{theorem}
-}
+\vfill
+Important to stress \emph{local} nature of stability that is deduced from this result. We will see later that even when $\mathcal{R}_0<1$, there can be several positive equilibria
+\end{frame}
+
+\begin{frame}{Direction of the bifurcation at $\mathcal{R}_0=1$}
+$\mu$ bifurcation parameter s.t. $\mathcal{R}_0<1$ for $\mu<0$ and $\mathcal{R}_0>1$ for $\mu>0$ and $x_0$ DFE for all values of $\mu$ and consider the system
+\begin{equation}
+\label{eq:sys_PvdDW}
+x'=f(x,\mu)
+\end{equation}
+\vfill
+Write 
+\[
+D_xf(x_0,0)=
+\left. 
+  D(\mathcal{F}(x_0)-\mathcal{V}(x_0))
+\right|_{\mathcal{R}_0=1}
+\]
+as block matrix
+\[
+D\mathcal{F}(x_0)
+=\begin{pmatrix}
+F & 0 \\ 0 & 0
+\end{pmatrix},
+\quad
+D\mathcal{V}(x_0)
+=\begin{pmatrix}
+V & 0 \\ J_3 & J_4
+\end{pmatrix}
+\]
+\end{frame}
+
+\begin{frame}
+Write $[\alpha_{\ell k}]$, $\ell=m+1,\ldots,n$, $k=1,\ldots,m$ the $(\ell-m,k)$ entry of $-J_4^{-1}J_3$ and let $v$ and $w$ be left and right eigenvectors of $D_xf(x_0,0)$ s.t. $vw=1$
+\vfill
+Let
+\begin{equation}
+\label{eq:PvdDW_a}
+a =\sum_{i,j,k=1}^m
+v_iw_jw_k
+\left(
+\frac 12 
+\frac{\partial^2f_i}{\partial x_j\partial x_k}(x_0,0)
++\sum_{\ell=m+1}^n
+\alpha_{\ell k}
+\frac{\partial^2f_i}{\partial x_j\partial x_\ell}(x_0,0)
+\right)
+\end{equation}
+\vfill
+\begin{equation}
+\label{eq:PvdDW_b}
+b
+=vD_{x\mu}f(x_0,0)w
+=\sum_{i,j=1}^n v_iw_j
+\frac{\partial^2f_i}{\partial x_j\partial\mu}
+(x_0,0)
+\end{equation}
+\end{frame}
+
+\begin{frame}
+\begin{theorem}
+Consider model $\eqref{eq:sys_PvdDW}$ with $f(x,\mu)$ satisfying conditions (A1)–(A5) and $\mu$ as described above
+\vskip1cm
+Assume that the zero eigenvalue of $D_xf(x_0,0)$ is simple
+\vskip1cm
+Define $a$ and $b$ by $\eqref{eq:PvdDW_a}$ and $\eqref{eq:PvdDW_b}$; assume that $b\neq 0$. Then $\exists\delta > 0$ s.t.
+\begin{itemize}
+\item if $a < 0$, then there are LAS endemic equilibria near $x_0$ for $0 < \mu < \delta$
+\item if $a > 0$, then there are unstable endemic equilibria near $x_0$ for $-\delta < \mu < 0$
+\end{itemize}
+\end{theorem}
+\end{frame}
+
 
 \frame{\frametitle{Example of the SLIRS model \eqref{sys:SLIRS}}
 Variation of the infected variables in \eqref{sys:SLIRS} are described by
