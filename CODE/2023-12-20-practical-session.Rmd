@@ -2,7 +2,9 @@
 title: "Arba Minch practical session"
 author: "Julien Arino"
 date: "2023-12-20"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -38,11 +40,14 @@ if (!require(dplyr)) {
 }
 ```
 
-## Leading causes of death in Ethiopia
+Note: just before the pandemic, I published a paper on "being data aware" in mathematical epidemiology. You can find it [here](). I also put a copy on the GitHub repo. Note that you should really look at the code of that paper, which has its [own repository](https://github.com/julien-arino/modelling-with-data), as the publisher did a very bad job of rendering the file.
 
-You can get the data from [here](https://data.who.int/countries/231), which will point you back [here](https://www.who.int/data/gho/data/themes/mortality-and-global-health-estimates/ghe-leading-causes-of-death). Let us see, however, if we can get the data directly from R. Two libraries may prove useful: `WHO` (but this was "removed for policy violation", so who knows) and `wbstats`, which gets data from the World Bank.
+## Getting some data online
 
-## Getting the data online
+You can get some WHO data about Ethiopia from [here](https://data.who.int/countries/231), which will point you back [here](https://www.who.int/data/gho/data/themes/mortality-and-global-health-estimates/ghe-leading-causes-of-death) for leading causes of death. 
+
+Let us see, however, if we can get the data directly from R. Two libraries may prove useful: `WHO` (but this was "removed for policy violation", so who knows) and `wbstats`, which gets data from the World Bank.
+
 
 ```{r get_data}
 if (ONLINE) {
@@ -60,7 +65,63 @@ if (ONLINE) {
 
 ### WHO data sets
 
-```{r display_data, include=TRUE}
-kableExtra::kbl(head(WHO_data_sets$display, 20)) %>%
-  kableExtra::kable_styling("striped", full_width = F)
+```{r display_WHO_data, include=TRUE}
+kableExtra::kbl(WHO_data_sets$display) %>%
+  kableExtra::scroll_box(height = "300px")
+```
+
+### World Bank data sets
+
+```{r display_WB_data, include=TRUE}
+kableExtra::kbl(head(WB_data_sets$indicator_desc, 20)) %>%
+  kableExtra::scroll_box(height = "300px")
+```
+
+### We need to find the right data set
+
+Those data sets are huge: there are `r nrow(WHO_data_sets)` data sets in the WHO data, and `r nrow(WB_data_sets)` in the World Bank data. We need to find the right one.
+Let us look for example for the word "mortality" in both data sets and see what we get.
+
+```{r find_mortality, include=TRUE}
+idx_mortablity_WHO = union(
+  grep("mortality", WHO_data_sets$display, ignore.case = TRUE),
+  grep("death", WHO_data_sets$display, ignore.case = TRUE))
+idx_mortablity_WB = union(
+  grep("mortality", WB_data_sets$indicator_desc, ignore.case = TRUE),
+  grep("death", WB_data_sets$indicator_desc, ignore.case = TRUE))
+```
+
+Display the indices we found. First, from WHO
+
+
+
+```{r display_mortality_WHO, include=TRUE}
+kableExtra::kbl(WHO_data_sets$display[idx_mortablity_WHO]) %>%
+  kableExtra::scroll_box(height = "300px")
+```
+
+Then World Bank
+
+```{r display_mortality_WB, include=TRUE}
+kableExtra::kbl(WB_data_sets$indicator_desc[idx_mortablity_WB]) %>%
+  kableExtra::scroll_box(height = "300px")
+```
+
+
+You see the idea... Most of the epidemiologicalm data in WB comes from WHO, so from now on, we just focus on WHO data for this.
+
+## Tuberculosis
+
+As no group was given tuberculosis (TB), let us look for that.
+
+```{r find_TB, include=TRUE}
+idx_TB_WHO = grep("tuberculosis", WHO_data_sets$display, ignore.case = TRUE)
+```
+
+Display the indices we found.
+
+
+```{r display_TB_WHO, include=TRUE}
+kableExtra::kbl(WHO_data_sets[idx_TB_WHO,]) %>%
+  kableExtra::scroll_box(height = "300px")
 ```
