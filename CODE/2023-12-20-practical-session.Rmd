@@ -125,3 +125,21 @@ Display the indices we found.
 kableExtra::kbl(WHO_data_sets[idx_TB_WHO,]) %>%
   kableExtra::scroll_box(height = "300px")
 ```
+
+
+```{r}
+TB_data = wb_data("SH.TBS.INCD") %>%
+  filter(country == "Ethiopia")
+```
+
+```{r}
+RHS_TB <- function(t, x, p) {
+  with(as.list(c(x,p)), {
+    dS <- b-d*S-beta_S*S*I
+    dL <- beta_S*S*I+gamma_T*T+gamma_I*I-(d+epsilon+t_L)*L
+    dI <- epsilon*L+beta_T*T*I-(d+delta+gamma_I+t_I)*I
+    dT <- -beta_T*T*I-(d+gamma_T)*T+t_L*L+t_I*I
+    return(list(c(dS, dL, dI, dT)))
+  })
+}
+```
