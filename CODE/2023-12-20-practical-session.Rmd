@@ -1,0 +1,66 @@
+---
+title: "Arba Minch practical session"
+author: "Julien Arino"
+date: "2023-12-20"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, include = FALSE)
+
+# During the course, I may not have the data, so I will turn this off.
+ONLINE = FALSE
+
+# Load/install some libraries we may need
+if (!require(WHO)) {
+  # Download WHO package tarball from CRAN archive since it was removed
+  url <- "https://cran.r-project.org/src/contrib/Archive/WHO/WHO_0.2.1.tar.gz"
+  pkgFile <- "WHO_0.2.1.tar.gz"
+  download.file(url = url, destfile = pkgFile)
+  # Install package (no dependencies here)
+  install.packages(pkgs=pkgFile, type="source", repos=NULL)
+  # Delete package tarball
+  unlink(pkgFile)
+  # Load library
+  library(WHO)
+}
+if (!require(wbstats)) {
+  install.packages("wbstats")
+  library(wbstats)
+}
+if (!require(kableExtra)) {
+  install.packages("kableExtra")
+  library(kableExtra)
+}
+if (!require(dplyr)) {
+  install.packages("dplyr")
+  library(dplyr)
+}
+```
+
+## Leading causes of death in Ethiopia
+
+You can get the data from [here](https://data.who.int/countries/231), which will point you back [here](https://www.who.int/data/gho/data/themes/mortality-and-global-health-estimates/ghe-leading-causes-of-death). Let us see, however, if we can get the data directly from R. Two libraries may prove useful: `WHO` (but this was "removed for policy violation", so who knows) and `wbstats`, which gets data from the World Bank.
+
+## Getting the data online
+
+```{r get_data}
+if (ONLINE) {
+  # WHO data sets
+  WHO_data_sets <- get_codes()
+  saveRDS(WHO_data_sets, "DATA/WHO_data_sets.rds")
+  # World Bank data sets
+  WB_data_sets <- wbstats::wb_indicators()
+  saveRDS(WB_data_sets, "DATA/WB_data_sets.rds")
+} else {
+  WHO_data_sets <- readRDS("DATA/WHO_data_sets.rds")
+  WB_data_sets <- readRDS("DATA/WB_data_sets.rds")
+}
+```
+
+### WHO data sets
+
+```{r display_data, include=TRUE}
+kableExtra::kbl(head(WHO_data_sets$display, 20)) %>%
+  kableExtra::kable_styling("striped", full_width = F)
+```
