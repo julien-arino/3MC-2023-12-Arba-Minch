@@ -35,7 +35,10 @@ if (!require(WHO)) {
 
 # Rather than write separate code for each, go through each required package and install
 # if needed
-required_packages = c("wbstats", "dplyr", "deSolve", "GillespieSSA2")
+required_packages = c("wbstats", "dplyr", 
+                      "deSolve", "GillespieSSA2",
+                      "sensitivity", "randtoolbox",
+                      "ggplot2")
 for (pack in required_packages) {
   if (!require(pack, character.only = TRUE)) {
     install.packages(pack)
@@ -77,7 +80,7 @@ kableExtra::kbl(WHO_data_sets$display) %>%
 
 ```{r display_WB_data, include=TRUE}
 kableExtra::kbl(head(WB_data_sets$indicator_desc, 20)) %>%
-  kableExtra::scroll_box(height = "300px")
+  kableExtra::scroll_box(height = "100px")
 ```
 
 ### We need to find the right data set
@@ -168,22 +171,24 @@ kableExtra::kbl(TB_data)%>%
 
 # The model
 
-We settled on the following model.
+We settled on a model, which I am modifying a bit to make it more like the one of Castillo-Chavez and Feng.
+
+![](CCCFeng-flow-diagram.png)
 
 $$
 \begin{aligned}
-S' &= b-dS-\beta_SSI \\
-L' &= \beta_SSI+\gamma_TT+\gamma_II-(d+\varepsilon+t_L)L \\
-I' &= \varepsilon L+\beta_TTI-(d+\delta+\gamma_I+t_I)I \\
-T' &= t_LL+t_II-\beta_TTI-(d+\gamma_T)T
+S' &= b-dS-\beta_SS\frac{I}{N} \\
+L' &= \beta_SS\frac{I}{N}
++\beta_TT\frac{I}{N}
+-(d+\varepsilon+t_L)L \\
+I' &= \varepsilon L-(d+\delta+t_I)I \\
+T' &= t_LL+t_II-\beta_TT\frac IN-dT
 \end{aligned}
 $$
 
 where $S$ is the number of susceptible individuals, $L$ the number of latently infected individuals, $I$ the number of actively infected individuals and $T$ the number of treated individuals. 
-The parameters are:
 
-
-..
+First, note that $N'=(S+L+I+T)'=b-dN$ so that $N(t)=N(0)e^{-dt}$ and thus $N\to b/d$ as $t\to\infty$. From now on, we assume $N$ constant and thus when differentiating the incidence, treat it as a constant.
 
 ## Computation of $\mathcal{R}_0$
 
@@ -191,7 +196,7 @@ Set $L=I=T=0$ and solve for $S$, giving that at the DFE, $S^\star=b/d$.
 We find that 
 $$
 F=\begin{pmatrix}
-0 & \beta_S S^\star & 0 \\
+0 & \beta_S & 0 \\
 0 & 0 & 0 \\
 0 & 0 & 0 
 \end{pmatrix}
@@ -199,20 +204,39 @@ $$
 and 
 $$
 V = \begin{pmatrix}
-d+\varepsilon+t_L & -\gamma_I & -\gamma_T \\
--\varepsilon & d+\delta+\gamma_I+t_I & 0 \\
--t_L & 0 & d+\gamma_T
+d+\varepsilon+t_L & 0 & 0 \\
+-\varepsilon & d+\delta+t_I & 0 \\
+-t_L & -t_I & d
 \end{pmatrix}
 $$
-Given the shape of $F$ and $V$, we realise that the only information we need about $V^{-1}$ is the value of the (2,1) entry.
+Given the shape of $F$ and $V$, we realise that the only information we need about $V^{-1}$ is the value of the (2,1) entry, which equals
+$$
+\frac{\varepsilon}
+{(t_I+\delta+d)(t_L+\varepsilon+d)}
+$$
+and thus
+$$
+\mathcal{R}_0 = \frac{\varepsilon\beta_S}
+{(t_I+\delta+d)(t_L+\varepsilon+d)}
+$$
+```{r compute_R0_TB, include=TRUE}
+R0_TB = function(p) {
+  with(as.list(p), {
+    R0 = epsilon*beta_S / 
+      ((t_I+delta+d)*(t_L+epsilon+d))
+    return(R0)
+  })
+}
+```
 
-```{r}
+```{r run_CTMC_ODE, include=TRUE}
 RHS_TB <- function(t, x, p) {
   with(as.list(c(x,p)), {
-    dS <- b-d*S-beta_S*S*I
-    dL <- beta_S*S*I+gamma_T*T+gamma_I*I-(d+epsilon+t_L)*L
-    dI <- epsilon*L+beta_T*T*I-(d+delta+gamma_I+t_I)*I
-    dT <- -beta_T*T*I-(d+gamma_T)*T+t_L*L+t_I*I
+    N = S+L+I+T
+    dS <- b-d*S-beta_S*S*I/N
+    dL <- beta_S*S*I/N+beta_T*T*I/N-(d+epsilon+t_L)*L
+    dI <- epsilon*L-(d+delta+t_I)*I
+    dT <- t_L*L+t_I*I-beta_T*T*I/N-d*T
     return(list(c(dS, dL, dI, dT)))
   })
 }
@@ -224,18 +248,16 @@ reactions_TB <- list(
   reaction("d*I", c(I=-1), "natural_death_I"),
   reaction("d*T", c(T=-1), "natural_death_T"),
   reaction("delta*I", c(I=-1), "TB_death_I"),
-  reaction("beta_S*S*I", c(S=-1,I=+1), "new_infection_S_to_L"),
-  reaction("beta_T*T*I", c(T=-1,I=+1), "reinfection_T_to_I"),
+  reaction("beta_S*S*I/(S+L+I+T)", c(S=-1,L=+1), "new_infection_S"),
+  reaction("beta_T*T*I/(S+L+I+T)", c(T=-1,L=+1), "reinfection_T"),
   reaction("epsilon*L", c(L=-1,I=+1), "L_to_I"),
-  reaction("gamma_T*T", c(T=-1,L=+1), "T_to_L"),
-  reaction("gamma_I*I", c(L=+1,I=-1), "I_to_L"),
   reaction("t_L*L", c(L=-1,T=+1), "treatment_L"),
   reaction("t_I*I", c(I=-1,T=+1), "treatment_I")
 )
 # To make things easy, work with a total population of 100K, matching the "per 100K" 
 # in the data
 Pop = 100000
-I_0 = TB_data$incidence[1]
+I_0 = TB_data$incidence[dim(TB_data)[1]]
 IC <- c(S = Pop-I_0, L = I_0*10, I = I_0, T = 0)
 params <- list()
 if (ONLINE) {
@@ -247,12 +269,10 @@ if (ONLINE) {
   params$d = 0.01539053 
 }
 params$b = Pop*params$d
-params$beta_S = 0.00005
+params$beta_S = 0.05
 params$beta_T = 0.00002
 params$delta = 1/200
 params$epsilon = 1/500
-params$gamma_T = 1/100
-params$gamma_I = 1/1000
 params$t_L = 1/50
 params$t_I = 1/20
 # Final time
@@ -263,7 +283,7 @@ sol_CTMC <- ssa(
   initial_state = IC,
   reactions = reactions_TB,
   params = unlist(params),
-  method = ssa_exact(),
+  #method = ssa_exact(),
   final_time = params$t_f,
   log_firings = TRUE    # This way we keep track of events as well
 )
@@ -273,4 +293,58 @@ sol_ODE <- ode(
   parms = params,
   times = seq(0, params$t_f)
 )
+plot(sol_ODE[,"time"], sol_ODE[,"I"], type = "l")
+plot(sol_CTMC$time, sol_CTMC$state[,"I"], type = "l")
+```
+
+```{r sensitivity, include=TRUE}
+compute_PRCC = function(v, pars) {
+  tmp = as.numeric(v)
+  x = pcc(pars, tmp,
+          rank = TRUE, semi = FALSE)
+  return(x)
+}
+
+pars.df = data.frame(params = 
+                       c("d",
+                         "beta_S",
+                         "beta_T",
+                         "delta",
+                         "epsilon",
+                         "t_L",
+                         "t_I"))
+tmp = matrix(c( 
+  1/(100*365), 1/(50*365), # d
+  0.00001, 0.1, # beta_S
+  0.00001, 0.1, # beta_T
+  1/500, 1/100, # delta
+  1/5000, 1/50, # epsilon
+  1/100, 1/10, # t_L
+  1/100, 1/10), # t_I)
+  nc = 2, byrow = TRUE)
+pars.df$min = tmp[,1]
+pars.df$max = tmp[,2]
+
+# Sensitivity sample size
+N = 500
+
+# To use sensitivity::parameterSets, we need to convert the data frame to a list
+pars.list = list()
+for (i in 1:dim(pars.df)[1]) {
+  pars.list[[pars.df$params[i]]] = c(pars.df$min[i], pars.df$max[i])
+}
+nb_pars = length(pars.list)
+pars.sobol = parameterSets(par.ranges = pars.list, 
+                           samples = N, 
+                           method = "sobol")
+pars.sobol = as.data.frame(pars.sobol)
+colnames(pars.sobol) = pars.df$params
+# Compute R0 for each point in parameter space
+R0_values = apply(pars.sobol, 1, R0_TB)
+# Now compute PRCC
+prcc = compute_PRCC(R0_values, pars.sobol)
+# Plot the result
+# plot(prcc, type = "h", 
+#      xlab = "Parameter", ylab = "PRCC")
+ggplot(prcc)
 ```
