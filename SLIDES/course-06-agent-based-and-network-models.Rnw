@@ -1,13 +1,13 @@
 %\SweaveUTF8
-\documentclass[aspectratio=43]{beamer}
+\documentclass[aspectratio=169]{beamer}
 \usepackage{Sweave}
 
 \input{slides_setup_nonLightBoard_whiteBG.tex}
 
 \title{Agent-based and network models}
-\subtitle{Lecture 06}
+\subtitle{Course 06}
 \author{Julien Arino}
-\date{September 2023}
+\date{December 2023}
 
 
 \begin{document}
@@ -49,20 +49,23 @@ The two are of course essentially equivalent, the context tends to drive the for
 
 \begin{frame}{Interactions -- Infection}
 \bbullet Rate at which new cases appear per unit time is the \emph{incidence function}
-$$
+\[
 f(S,I,N)
-$$
+\]
+\vfill
 \bbullet Depends of the number $S$ of susceptible individuals, $I$ of infectious individuals and, sometimes, of the total population $N$
+\vfill
 \bbullet Incidence includes two main components
 \begin{itemize}
 	\item a denumeration of the number of contacts taking place
 	\item a description of the probability that such a contact, when it takes place, results in the transmission of the pathogen
 \end{itemize}
+\vfill
 \bbullet Choosing an appropriate function is hard and probably one of the flunkiest part of epidemic modelling
 \end{frame}
 
 \begin{frame}{Two most frequently used functions}
-The two most frequently used incidence functions are  \defword{mass action incidence}
+The two most frequently used incidence functions are \defword{mass action incidence}
 \[
 f(S,I, N)=\beta SI
 \]
@@ -71,7 +74,7 @@ and \defword{standard} (or \defword{proportional}) \defword{incidence}
 f(S,I, N)=\beta\frac{SI}{N}
 \]
 \vfill
-In both cases, $\beta$ is the \emph{disease transmission coefficient}
+In both cases, $\beta$ is the \defword{disease transmission coefficient}
 \end{frame}
 
 
@@ -83,14 +86,14 @@ In a differential equation, left and right hand side must have same units, so..
 \vfill
 \textbf{Mass action incidence}
 $$
-\beta SI \propto 
+\beta SI \propto
 \beta\times\text{number}\times\text{number}
 $$
 has units number/time if $\beta$ has units $1/(\text{number}\times\text{time})$
 \vfill
 \textbf{Standard incidence}
 $$
-\beta SI/N \propto 
+\beta SI/N \propto
 \beta\times\text{number}\times\text{number}/\text{number} \propto \beta \times\text{number}
 $$
 has units number/time if $\beta$ has units $1/\text{time}$
@@ -102,17 +105,17 @@ has units number/time if $\beta$ has units $1/\text{time}$
 f(S,I, N)=\beta SI
 \end{equation}
 \begin{itemize}
-\item There is homogenous mixing of susceptible and infectious individuals 
+\item There is homogenous mixing of susceptible and infectious individuals
 \item Strong hypothesis: each individual potentially meets every other individual
 \end{itemize}
 \vfill
-In this case, one of the most widely accepted interpretations is that all susceptible individuals can come across all infectious individuals (hence the name, by analogy with gas dynamics in chemistry/physics) 
+In this case, one of the most widely accepted interpretations is that all susceptible individuals can come across all infectious individuals (hence the name, by analogy with gas dynamics in chemistry/physics)
 \vfill
 When population is large, the hypothesis becomes unrealistic
 \end{frame}
 
 
-\begin{frame}{Standard (proportional) incidence} 
+\begin{frame}{Standard (proportional) incidence}
 The other form used frequently:
 \begin{equation}\label{eq:incidence_proportional}
 f(S,I,N)=\beta\frac{SI}{N}
@@ -148,7 +151,7 @@ These functions were introduced with data fitting in mind: fitting to data, find
 
 
 \begin{frame}{Incidence with refuge}
-The following implements a refuge effect; it assumes that a proportion $0<q<1$ of the population is truly susceptible, because of, e.g., spatial heterogenities
+The following implements a refuge effect; it assumes that a proportion $0<q<1$ of the population is truly susceptible, because of, e.g., spatial heterogeneity
 \vfill
 \begin{equation}\label{eq:incidence_with_refuge}
 f(S,I,N)=
@@ -161,9 +164,9 @@ f(S,I,N)=
 
 
 \begin{frame}{Negative binomial incidence}
-\begin{frame}\label{eq:neg_binom_incidence}
+\begin{equation}\label{eq:neg_binom_incidence}
 f(S,I,N)=kS\ln\left(1+\beta\frac Ik\right)
-\end{frame}
+\end{equation}
 \vfill
 For small values of $k$, this function describes a very concentrated infection process, while when $k\to\infty$, this function reduces to a mass action incidence
 \end{frame}
@@ -176,18 +179,17 @@ f(S,I,N)
 \frac{F(S,I)}{N}
 $$
 where $F$ is one of the functions we just described
-
+\vfill
 When $\varepsilon=0$, contacts are proportionnal to $N$, whereas when $\varepsilon=1$, contacts are independent from $N$
 \end{frame}
 
 
 \begin{frame}{Asymptomatic transmission}
-
 $$
 f(S,I,N)
 =\beta\frac{SI}{c+S+I}
 $$
-where $c$ is a constant. E.g., 
+where $c$ is a constant. E.g.,
 $$
 \frac{C(N)}N F(S,I)
 $$
@@ -196,12 +198,11 @@ with $C(N)=N/(1-\varepsilon+\varepsilon N)$ the function describing the contact 
 
 
 \begin{frame}{Switching incidence}
-
-Arino \& McCluskey, [Effect of a sharp change of the incidence function on the dynamics of a simple disease](https://doi.org/10.1080/17513751003793017), *Journal of Biological Dynamics* (2010)
-
+Arino \& McCluskey, \href{https://doi.org/10.1080/17513751003793017}{Effect of a sharp change of the incidence function on the dynamics of a simple disease}, \emph{Journal of Biological Dynamics} (2010)
+\vfill
 Scale population so switch occurs at $N=1$ and suppose
 $$
-F(S,I,N) = 
+F(S,I,N) =
 \begin{cases}
 \beta SI & \textrm{if }N\leq 1 \\
 \beta \dfrac{SI}{N} & \textrm{if }N> 1
@@ -218,7 +219,9 @@ $b\neq d$ and $\delta$ disease-induced death rate, periodic solutions found
 
 
 \begin{frame}{Why all this mess?}
-Because contact processes are really really complicated and that describing them mathematically is \textbf{hard}!	
+Because contact processes are really really complicated and that describing them mathematically is \textbf{hard}!
+\vfill
+Agent-based models (ABM) and network models provide a way to better understand contact processes at the micro-scale 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%
@@ -236,15 +239,15 @@ Early in the life of these models, they were called IBM (individual-based models
 Over the years, a ``philosophical'' distinction has emerged:
 \begin{itemize}
 \item IBM are mathematical models that consider individuals as the units; e.g., DTMC, CTMC, branching processes, etc.
-\item ABM are computational models whose study is, for the most part, only possible numerically 
+\item ABM are computational models whose study is, for the most part, only possible numerically
 \end{itemize}
-\end{frame} 
+\end{frame}
 
 \begin{frame}{ABM vs Network models}
 Network models endow vertices with simple systems and couple them through graphs
 \vfill
 Can be ABM, but some networks can also be studied analytically
-\end{frame} 
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%
@@ -257,10 +260,10 @@ Classic mathematical models capture contact by using approximations of what cont
 Classic models allow some flexibility (see section about incidence functions in Lecture X but they remain limited
 \vfill
 ABM can model actual trajectories of individuals, so given a definition of what a contact is (how close do you need to be for a contact to take place), can count them efficaciously
-\end{frame} 
+\end{frame}
 
 \begin{frame}{ABM are very useful to understand behavioural responses}
-\end{frame} 
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%
@@ -281,7 +284,7 @@ There is a certain tendency in CS people to create \emph{yet another} system and
 
 \begin{frame}{Antibiotic resistance in hospitals}
 D’Agata, Magal, Olivier, Ruan \& Webb. \href{https://doi.org/10.1016/j.jtbi.2007.08.011}{Modeling antibiotic resistance in hospitals: The impact of minimizing treatment duration}, Journal of Theoretical Biology (2007)
-\end{frame} 
+\end{frame}
 
 
 \begin{frame}{An IBM that's almost an ABM}
@@ -290,14 +293,14 @@ This work is a good illustration of the ``cultural proximity'' between IBM and A
 Model is stochastic and individual-based, in good enough form that approximating ODE can be derived
 \vfill
 Allows for very specific tracking of the status of individuals through the process (almost an ABM in this sense)
-\end{frame} 
+\end{frame}
 
 
 \begin{frame}{The setup}
 Three processes:
 \begin{enumerate}
 \item admission and exit of patients
-\item infection of patients by HCW (health care workers) 
+\item infection of patients by HCW (health care workers)
 \item contamination of HCW by patients
 \end{enumerate}
 
@@ -309,7 +312,7 @@ Each day has 3 shifts of 8h for HCW
 Patients are put in contact by visits of HCW
 \vfill
 Rules for contaminations per unit time
-\end{frame} 
+\end{frame}
 
 
 \begin{frame}
@@ -327,7 +330,7 @@ Rules for contaminations per unit time
 \includegraphics[width=\textwidth]{FIGS/Dagata_etal_comparisons.jpg}
 \end{center}
 \vfill
-\tiny 
+\tiny
 The left (respectively the right) figure corresponds to 1 trajectory (respectively the average over 80 trajectories) of the IBM during one shift, with no exit and admission of patients, and no changes in the infection status of patients
 \end{frame}
 
@@ -494,13 +497,6 @@ A network is a (mathematical) graph, oriented or not, in which edges/arcs repres
 \end{frame}
 
 
-\begin{frame}{Example of the global air transport network}
-- Je vais illustrer avec des données du réseau de transport aérien mondial
-- Données assez bonnes (très bonnes parfois), et un avantage flagrant:
-  - Quand un avion part de quelque part et arrive ailleurs, c'est quelque chose d'assez .. déterministe
-\end{frame}
-
-
 \begin{frame}{The global air transportation network}
 	\bigskip
 	{\centering
@@ -534,7 +530,7 @@ A network is a (mathematical) graph, oriented or not, in which edges/arcs repres
 
 \begin{frame}
 	Some ``measures'' concern the vertices, others the graph as a whole
-	
+\vfill
 	In all that follows, unless otherwise indicated, $G=(X,A)$ is a digraph. If undirected, we write $G=(X,E)$.
 \end{frame}
 
@@ -556,7 +552,7 @@ For $x,y\in X$, the \defword{geodesic distance} $d(x,y)$ is the length of the sh
 \end{frame}
 
 \begin{frame}
-	\begin{minipage}{0.5\textwidth}
+	\begin{minipage}{0.45\textwidth}
 	\begin{itemize}
 	\item $d(x_1,x_2)=1$
 	\item $d(x_1,x_3)=2$
@@ -571,8 +567,8 @@ For $x,y\in X$, the \defword{geodesic distance} $d(x,y)$ is the length of the sh
 	4 & 5 & 1 & 0 & 3 & 2 \\
 	1 & 2 & 3 & 3 & 0 & 4 \\
 	2 & 3 & 4 & 4 & 1 & 0
-	\end{pmatrix}		
-	\]		
+	\end{pmatrix}
+	\]
 	\end{minipage}
 	\begin{minipage}{0.49\textwidth}
 		\def\skip{2.75cm}
@@ -650,7 +646,7 @@ For $x,y\in X$, the \defword{geodesic distance} $d(x,y)$ is the length of the sh
 
 \begin{frame}{Eccentricity}
 \begin{definition}[Vertex eccentricity]
-	The \textbf{eccentricity} $e(x)$ of vertex $x\in X$ is 
+	The \defword{eccentricity} $e(x)$ of vertex $x\in X$ is
 	\[
 		e(x)=\max_{\stackrel{y\in X}{y\neq x}}d(x,y)
 	\]
@@ -664,7 +660,7 @@ For $x,y\in X$, the \defword{geodesic distance} $d(x,y)$ is the length of the sh
 	4 & \boldred{5} & 1 & 0 & 3 & 2 \\
 	1 & 2 & 3 & 3 & 0 & \boldred{4} \\
 	2 & 3 & \boldred{4} & \boldred{4} & 1 & 0
-\end{pmatrix}		
+\end{pmatrix}
 \]
 \end{minipage}
 \begin{minipage}{0.49\textwidth}
@@ -698,11 +694,11 @@ For $x,y\in X$, the \defword{geodesic distance} $d(x,y)$ is the length of the sh
 
 \begin{frame}{Central points, radius and centre}
 \begin{definition}[Central point]
-	A \textbf{central point} of $G$ is a vertex $x_0$ with smallest eccentricity
+	A \defword{central point} of $G$ is a vertex $x_0$ with smallest eccentricity
 \end{definition}
 \vfill
 \begin{definition}[Radius]
-	The \textbf{radius} of $G$ is $\rho(G)=e(x_0)$, where $x_0$ is a centre of $G$
+	The \defword{radius} of $G$ is $\rho(G)=e(x_0)$, where $x_0$ is a centre of $G$
 	In other words,
 	\[
 	\rho(G)=\min_{x\in X}e(x)
@@ -710,7 +706,7 @@ For $x,y\in X$, the \defword{geodesic distance} $d(x,y)$ is the length of the sh
 \end{definition}
 \vfill
 \begin{definition}[Centre]
-The \textbf{centre} of $G$ is the set of vertices that are central points of $G$, i.e.,
+The \defword{centre} of $G$ is the set of vertices that are central points of $G$, i.e.,
 \[
     \{x\in X: e(x)=\rho(G)\}
 \]
@@ -729,7 +725,7 @@ The \textbf{centre} of $G$ is the set of vertices that are central points of $G$
 	4 & \boldred{5} & 1 & 0 & 3 & 2 \\
 	1 & 2 & 3 & 3 & 0 & \boldred{4} \\
 	2 & 3 & \boldred{4} & \boldred{4} & 1 & 0
-\end{pmatrix}		
+\end{pmatrix}
 \]
 %\vfill
 Radius is 3, $x_2$ is a central point (the only one) and the centre is $\{x_2\}$
@@ -766,19 +762,20 @@ Radius is 3, $x_2$ is a central point (the only one) and the centre is $\{x_2\}$
 %%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Centrality -- Betweenness and closeness}
 \begin{frame}{How \emph{central} is a vertex?}
-	\emph{Centrality} tries to answer the question: what are the most influent vertices? 
-	
+	\emph{Centrality} tries to answer the question: what are the most influent vertices?
+\vfill
 	We have seen central vertices and vertices on the periphery, let us consider two other measures of centrality
 	\begin{itemize}
 			\item Betweenness centrality
 			\item Closeness centrality
 	\end{itemize}
+	\vfill
 	Many other forms (we will come back to this, e.g., degree centrality)
 \end{frame}
 
 \begin{frame}{Betweenness}
 \begin{definition}[Betweenness]
-	$G=(X,U)$ a graph, $x\in X$. The \textbf{betweenness} of $v$ is
+	$G=(X,U)$ a graph, $x\in X$. The \defword{betweenness} of $v$ is
 	\[
 	b_\D(v)= \sum_{s\neq t\neq v  \in X} \frac{\sigma_{st}(v)}{\sigma_{st}}
 	\]
@@ -786,7 +783,7 @@ Radius is 3, $x_2$ is a central point (the only one) and the centre is $\{x_2\}$
 	\begin{itemize}
 	\item $\sigma_{st}$ number of shortest geodesic paths from $s$ to $t$
 	\item $\sigma_{st}(v)$ number of shortest geodesic paths from $s$ to $t$ through $v$
-	\end{itemize}		
+	\end{itemize}
 \end{definition}
 \vfill
 In other words
@@ -799,8 +796,10 @@ In other words
 
 \begin{frame}{Normalising betweenness}
 	Betweenness may be normalized by dividing through the number of pairs of vertices not including $v$:
+	\vfill
 	\begin{itemize}
 		\item for directed graphs, $(n-1)(n-2)$
+		\vfill
 		\item for undirected graphs, $(n-1)(n-2)/2$
 	\end{itemize}
 \end{frame}
@@ -852,7 +851,7 @@ In other words
 
 
 \begin{frame}{Number of shortest paths}
-	Recall we found 
+	Recall we found
 	{\tt distances(G, mode="out")}
 	\[
 		\mathcal{D} =
@@ -936,16 +935,16 @@ In other words
 
 \begin{frame}{Closeness}
 	\begin{definition}
-		$G=(X,U)$, $v\in X$. The \textbf{closeness} of $v$ is
+		$G=(X,U)$, $v\in X$. The \defword{closeness} of $v$ is
 		\[
 		c_\D(v)=\frac{1}{n-1}\displaystyle \sum_{t\in X\setminus\{v\}}d_\D(v,t)
 		\]
 		i.e., mean geodesic distance between a vertex $v$ and all other vertices it has access to
-		\vskip1cm 
+		\vskip1cm
 		Another definition is
 		\[
 		c_\D(v)=\frac{1}{\displaystyle\sum_{t \in X\setminus\{v\}}d_\D(v,t)}
-		\]				
+		\]
 	\end{definition}
 \end{frame}
 
@@ -987,7 +986,7 @@ In other words
 \subsubsection{Periphery of a graph}
 \begin{frame}{Diametre and periphery of a graph}
 \begin{definition}[Diametre of a graph]
-The \textbf{diametre} of $G$ is 
+The \defword{diametre} of $G$ is
 \[
 	\delta(G) = \max_{\stackrel{x,y\in X}{x\neq y}}d(x,y)
 \]
@@ -1000,7 +999,7 @@ or, in other words,
 $\delta(G)<\infty$ $\iff$ $G$ strongly connected
 \vfill
 \begin{definition}[Periphery]
-    The \textbf{periphery} of a graph is the set of vertices whose eccentricity achieves the diametre, i.e.,
+    The \defword{periphery} of a graph is the set of vertices whose eccentricity achieves the diametre, i.e.,
     \[
         \{x\in X:e(x)=\delta(G)\}
     \]
@@ -1020,7 +1019,7 @@ $\delta(G)<\infty$ $\iff$ $G$ strongly connected
 	4 & \boldred{5} & 1 & 0 & 3 & 2 \\
 	1 & 2 & 3 & 3 & 0 & \boldred{4} \\
 	2 & 3 & \boldred{4} & \boldred{4} & 1 & 0
-\end{pmatrix}		
+\end{pmatrix}
 \]
 Diametre is 5 and the periphery is $\{x_3,x_4\}$
 	\end{minipage}
@@ -1049,7 +1048,7 @@ Diametre is 5 and the periphery is $\{x_3,x_4\}$
 			\path [line, thick] (x3) to (x6);
 			\path [line, thick, bend left] (x5) to (x1);
 			\end{tikzpicture}
-		\end{minipage}	
+		\end{minipage}
 	\begin{definition}[{Antipodal vertices}]
 			A pair of vertices $x$ and $y$ are \defword{antipodal} if they satisfy $d(x,y)=\delta(G)$.
 	\end{definition}
@@ -1061,32 +1060,32 @@ Diametre is 5 and the periphery is $\{x_3,x_4\}$
 
 \begin{frame}{Degree distribution}
 	\begin{definition}[Arc incident to a vertex]
-		If a vertex $x$ is the initial endpoint of an arc $u$, which is not a loop, the arc $u$ is \textbf{incident out of vertex} $x$ 
+		If a vertex $x$ is the initial endpoint of an arc $u$, which is not a loop, the arc $u$ is \defword{incident out of vertex} $x$
 		\vskip0.2cm
-		The number of arcs incident out of $x$ plus the number of loops attached to $x$ is denoted $d_G^+(x)$ and is the \textbf{outer demi-degree} of $x$
+		The number of arcs incident out of $x$ plus the number of loops attached to $x$ is denoted $d_G^+(x)$ and is the \defword{outer demi-degree} of $x$
 		\vskip0.2cm
-		An arc \textbf{incident into vertex} $x$ and the \textbf{inner demi-degree} $d_G^-(x)$ are defined similarly
+		An arc \defword{incident into vertex} $x$ and the \defword{inner demi-degree} $d_G^-(x)$ are defined similarly
 		\end{definition}
 		\vfill
 		\begin{definition}[Degree]
-		The \textbf{degree} of vertex $x$ is the number of arcs with $x$ as an endpoint, each loop being counted twice. The degree of $x$ is denoted $d_G(x)=d_G^+(x)+d_G^-(x)$
+		The \defword{degree} of vertex $x$ is the number of arcs with $x$ as an endpoint, each loop being counted twice. The degree of $x$ is denoted $d_G(x)=d_G^+(x)+d_G^-(x)$
 		\vskip0.2cm
-		If each vertex has the same degree, the graph is \textbf{regular}
+		If each vertex has the same degree, the graph is \defword{regular}
 	\end{definition}
 \end{frame}
 
 \begin{frame}
 	\begin{definition}[{Isolated vertex}]
-	A vertex of degree $0$ is \textbf{isolated}.
+	A vertex of degree $0$ is \defword{isolated}
 	\end{definition}
 	\begin{definition}[{Average degree of $G$}]
-	$d(G)=\frac{1}{|V|}\sum_{v\in V}deg_G(v)$.
+	$d(G)=\frac{1}{|V|}\sum_{v\in V}deg_G(v)$
 	\end{definition}
 	\begin{definition}[{Minimum degree of $G$}]
-	$\delta(G)=\min \{deg_G(v)|v\in V\}$.
+	$\delta(G)=\min \{deg_G(v)|v\in V\}$
 	\end{definition}
 	\begin{definition}[{Maximum degree of $G$}]
-	$\Delta(G)=\max \{deg_G(v)|v\in V\}$.
+	$\Delta(G)=\max \{deg_G(v)|v\in V\}$
 	\end{definition}
 \end{frame}
 
@@ -1124,7 +1123,7 @@ Diametre is 5 and the periphery is $\{x_3,x_4\}$
 \begin{frame}{Degrees in a directed graph}
 	\begin{minipage}{0.45\textwidth}
 		\def\skip{2.75cm}
-		\begin{tikzpicture}[scale = 0.65, 
+		\begin{tikzpicture}[scale = 0.65,
 			every node/.style={transform shape},
 			auto,
 			cloud/.style={minimum width={width("N-1")+2pt},
@@ -1151,7 +1150,7 @@ Diametre is 5 and the periphery is $\{x_3,x_4\}$
 	\quad
 	\begin{minipage}{0.45\textwidth}
 		\def\skip{2.75cm}
-		\begin{tikzpicture}[scale = 0.65, 
+		\begin{tikzpicture}[scale = 0.65,
 			every node/.style={transform shape},
 			auto,
 			cloud/.style={minimum width={width("N-1")+2pt},
@@ -1216,8 +1215,11 @@ Diametre is 5 and the periphery is $\{x_3,x_4\}$
 \begin{frame}{Degrees in {\tt igraph}}
 	\begin{itemize}
 		\item {\tt degree} gives the degrees of the vertices
+		\vfill
 		\item {\tt degree\_distribution} gives numeric vector of the same length as the maximum degree plus one. The first element is the relative frequency zero degree vertices, the second vertices with degree one, etc.
+		\vfill
 		\item {\tt knn} calculate the average nearest neighbor degree of the given vertices and the same quantity in the function of vertex degree
+		\vfill
 		\item {\tt strength} sums up the edge weights of the adjacent edges for each vertex
 	\end{itemize}
 \end{frame}
@@ -1225,7 +1227,7 @@ Diametre is 5 and the periphery is $\{x_3,x_4\}$
 \begin{frame}{Degree from adjacency matrix}
 	Suppose adjacency matrix take the form $A=[a_{ij}]$ with $a_{ij}=1$ if there is an arc from the vertex indexed $i$ to the vertex indexed $j$ and 0 otherwise. (Could be the other way round, using $A^T$, just make sure)
 	\vfill
-	Let $\be=(1,\ldots,1)^T$ be the vector of all ones 
+	Let $\be=(1,\ldots,1)^T$ be the vector of all ones
 	\vfill
 	$A\be=(d_G^+(1),\ldots,d_G^+(1))^T$ (out-degree)
 	\vfill
@@ -1243,10 +1245,10 @@ Diametre is 5 and the periphery is $\{x_3,x_4\}$
 
 \begin{frame}{Circumference}
 \begin{definition}[Circumference]
-    In an undirected (resp. directed) graph, the total number of edges (resp. arcs) in the longest cycle of graph $G$ is the \textbf{circumference} of $G$
+    In an undirected (resp. directed) graph, the total number of edges (resp. arcs) in the longest cycle of graph $G$ is the \defword{circumference} of $G$
 \end{definition}
 \begin{minipage}{0.5\textwidth}
-	Circumference is 6.
+	Circumference is 6
 \end{minipage}
 \begin{minipage}{0.49\textwidth}
 	\def\skip{2.5cm}
@@ -1277,10 +1279,10 @@ Diametre is 5 and the periphery is $\{x_3,x_4\}$
 
 \begin{frame}{Girth}
 \begin{definition}[Girth]
-    The total number of edges in the shortest cycle of graph $G$ is the \textbf{girth} $g(G)$
+    The total number of edges in the shortest cycle of graph $G$ is the \defword{girth} $g(G)$
 \end{definition}
 \begin{minipage}{0.3\textwidth}
-	Girth is 2.
+	Girth is 2
 \end{minipage}
 \begin{minipage}{0.69\textwidth}
 	\def\skip{2.5cm}
@@ -1305,7 +1307,7 @@ Diametre is 5 and the periphery is $\{x_3,x_4\}$
 		\path [line, thick] (x3) to (x6);
 		\path [line, thick, bend left] (x5) to (x1);
 		\end{tikzpicture}
-	\end{minipage}	
+	\end{minipage}
 \end{frame}
 
 
@@ -1314,10 +1316,10 @@ Diametre is 5 and the periphery is $\{x_3,x_4\}$
 
 \begin{frame}{Completeness}
 	\begin{definition}[{Complete undirected graph}]
-		An undirected graph is complete if every two of its vertices are adjacent.
+		An undirected graph is \defword{complete} if every two of its vertices are adjacent
 	\end{definition}
 	\begin{definition}[{Complete digraph}]
-		A digraph $D(V,A)$ is complete if $\forall u,v\in V$, $uv\in A$.
+		A digraph $D(V,A)$ is \defword{complete} if $\forall u,v\in V$, $uv\in A$
 	\end{definition}
 	\vfill
 In case of simple graphs, completeness effectively means that ``information'' can be transmitted from every vertex to every other vertex quickly (1 step)
@@ -1334,25 +1336,25 @@ edges, while $G=(X,A)$ directed and simple of order $n$ has at most
 \[
 	n(n-1)
 \]
-arcs 
+arcs
 \end{frame}
 
 \begin{frame}{Density of a graph}
 	\begin{definition}[Density]
-		The fraction of maximum number of edges or arcs present in the graph is the \textbf{density} of the graph.
+		The fraction of maximum number of edges or arcs present in the graph is the \defword{density} of the graph.
 	\end{definition}
 If the graph has $p$ edges or arcs, then its density is, respectively,
 \[
 	\frac {2p}{n(n-1)}
 \]
-or 
+or
 \[
 	\frac{p}{n(n-1)}
 \]
 \end{frame}
 
 \begin{frame}{Example of density}
-	\begin{minipage}{0.69\textwidth}
+	\begin{minipage}{0.59\textwidth}
 		\def\skip{2.75cm}
 		\begin{tikzpicture}[scale = 0.85,auto,
 			cloud/.style={minimum width={width("N-1")+2pt},
@@ -1376,14 +1378,14 @@ or
 			\path [line, thick, bend left] (x5) to (x1);
 			\end{tikzpicture}
 		\end{minipage}
-	\begin{minipage}{0.3\textwidth}
-		Graph has order 6 and thus a max of 30 arcs. 
+	\begin{minipage}{0.4\textwidth}
+		Graph has order 6 and thus a max of 30 arcs.
 		Here, 8 arcs $\implies$ density 0.267
-		\vfill 
-		(26.7\% of arcs are present)	
+		\vfill
+		(26.7\% of arcs are present)
 	\end{minipage}
 \end{frame}
-	
+
 
 %%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Graph connectivity}
@@ -1397,7 +1399,7 @@ Connectedness is important in terms of characteristing graph properties, as it s
 
 \begin{frame}
 	\begin{definition}[Connected graph]
-	A \textbf{connected graph} is a graph that contains a chain $\mu[x,y]$ for each pair $x,y$ of distinct vertices
+	A \defword{connected graph} is a graph that contains a chain $\mu[x,y]$ for each pair $x,y$ of distinct vertices
 	\end{definition}
 	\vfill
 	Denote $x\equiv y$ the relation  ``$x=y$, or $x\neq y$ and there exists a chain in $G$ connecting $x$ and $y$''. $\equiv$ is an equivalence relation since
@@ -1407,54 +1409,54 @@ Connectedness is important in terms of characteristing graph properties, as it s
 		\item $x\equiv y, y\equiv z\implies x\equiv z$ \hfill[transitivity]
 	\end{enumerate}
 	\begin{definition}[Connected component of a graph]
-	The classes of the equivalence relation $\equiv$ partition $X$ into connected sub-graphs of $G$ called \textbf{connected components}
+	The classes of the equivalence relation $\equiv$ partition $X$ into connected sub-graphs of $G$ called \defword{connected components}
 	\end{definition}
 	\end{frame}
-	
-\begin{frame}{Articulation set} 
+
+\begin{frame}{Articulation set}
 	\begin{definition}[Articulation set]
-	For a connected graph, a set $A$ of vertices is called an \textbf{articulation set} (or a \textbf{cutset}) if the subgraph of $G$ generated by $X-A$ is not connected
+	For a connected graph, a set $A$ of vertices is called an \defword{articulation set} (or a \defword{cutset}) if the subgraph of $G$ generated by $X-A$ is not connected
 	\end{definition}
 	\vfill
 	{\tt articulation\_points(G)} in {\tt igraph} (assumes the graph is undirected, makes it so if not)
 \end{frame}
 
-	
+
 	\begin{frame}{Strongly connected graphs}
-		$G=(X,U)$ connected. 
-		A \textbf{path of length 0} is any sequence $\{x\}$ consisting of a single vertex $x\in X$
+		$G=(X,U)$ connected.
+		A \defword{path of length 0} is any sequence $\{x\}$ consisting of a single vertex $x\in X$
 		\vfill
 		For $x,y\in X$, let $x\equiv y$ be the relation ``there is a path $\mu_1[x,y]$ from $x$ to $y$ as well as a path $\mu_2[y,x]$ from $y$ to $x$''. This is an equivalence relation (it is reflexive, symmetric and transitive)
 		\vfill
 		\begin{definition}[Strong components]\label{def:strong_components}
-		Sets of the form 
+		Sets of the form
 		\[
-		A(x_0)=\{x:x\in X, x\equiv x_0\}	
+		A(x_0)=\{x:x\in X, x\equiv x_0\}
 		\]
-		are equivalence classes; they partition $X$ and are the \textbf{strongly connected components} of $G$	
+		are equivalence classes; they partition $X$ and are the \defword{strongly connected components} of $G$
 		\end{definition}
 		\vfill
 		\begin{definition}[Strongly connected graph]
 		\label{def:strongly_connected_graph}
-		$G$ \textbf{strongly connected} if it has a single strong component
+		$G$ \defword{strongly connected} if it has a single strong component
 		\end{definition}
 \end{frame}
-		
+
 
 \begin{frame}
 	\begin{definition}[Minimally connected graph]
-	$G$ is \textbf{minimally connected} if it is strongly connected and removal of any arc destroys strong-connectedness
+	$G$ is \defword{minimally connected} if it is strongly connected and removal of any arc destroys strong-connectedness
 	\end{definition}
 	\vfill
 	\begin{definition}[Contraction]
-	$G=(X,U)$. The \textbf{contraction} of the set $A\subset X$ of vertices consists in replacing $A$ by a single vertex $a$ and replacing each arc into (resp. out of) $A$ by an arc with same index into (resp. out of) $a$
+	$G=(X,U)$. The \defword{contraction} of the set $A\subset X$ of vertices consists in replacing $A$ by a single vertex $a$ and replacing each arc into (resp. out of) $A$ by an arc with same index into (resp. out of) $a$
 	\end{definition}
 \end{frame}
-	
-		
+
+
 \begin{frame}{Quasi-strong connectedness}
 	\begin{definition}[Quasi-strong connectedness]
-	$G$ \textbf{quasi-strongly connected} if $\forall x,y\in X$, exists $z\in X$ (denoted $z(x,y)$ to emphasize dependence on $x,y$) from which there is a path to $x$ and a path to $y$
+	$G$ \defword{quasi-strongly connected} if $\forall x,y\in X$, exists $z\in X$ (denoted $z(x,y)$ to emphasize dependence on $x,y$) from which there is a path to $x$ and a path to $y$
 	\end{definition}
 	\vfill
 	Strongly connected $\implies$ quasi-strongly connected (take $z(x,y)=x$); converse not true
@@ -1468,7 +1470,7 @@ Connectedness is important in terms of characteristing graph properties, as it s
 
 \begin{frame}{Weak-connectedness}
 \begin{definition}[Weakly connected graph]
-	$G=(X,U)$ \textbf{weakly connected} if $G=(X,E)$ connected, where $E$ is obtained from $U$ by ignoring the direction of arcs
+	$G=(X,U)$ \defword{weakly connected} if $G=(X,E)$ connected, where $E$ is obtained from $U$ by ignoring the direction of arcs
 \end{definition}
 \vfill
 	\begin{minipage}{0.4\textwidth}
@@ -1525,11 +1527,11 @@ Define for $x,y\in X$ the relation $x\equiv y$ as ``$x=y$ or $x\neq y$ and there
 \vfill
 This defines an equivalence relation
 \begin{definition}[Weak components]
-Sets of the form 
+Sets of the form
 \[
 	A(x_0)=\{x:x\in X, x\equiv x_0\}
 \]
-are equivalence classes partitioning $X$ into the \textbf{weakly connected components} of $G$
+are equivalence classes partitioning $X$ into the \defword{weakly connected components} of $G$
 \end{definition}
 \vfill
 $G=(X,U)$ is weakly connected if there is a single weak component
@@ -1539,29 +1541,34 @@ $G=(X,U)$ is weakly connected if there is a single weak component
 \begin{frame}{Components in {\tt igraph}}
 \begin{itemize}
 	\item {\tt is\_connected} decides whether the graph is weakly or strongly connected
+	\vfill
 	\item {\tt components} finds the maximal (weakly or strongly) connected components of a graph
+	\vfill
 	\item {\tt count\_components} does almost the same as components but returns only the number of clusters found instead of returning the actual clusters
+	\vfill
 	\item {\tt component\_distribution} creates a histogram for the maximal connected component sizes
+	\vfill
 	\item {\tt decompose} creates a separate graph for each component of a graph
+	\vfill
 	\item {\tt subcomponent} finds all vertices reachable from a given vertex, or the opposite: all vertices from which a given vertex is reachable via a directed path
 \end{itemize}
 \end{frame}
-	
+
 %%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Cliques}
 
 \begin{frame}{Cliques}
 	\begin{definition}[Clique in undirected graphs]
-		$G=(X,E)$ a simple undirected graph. A \textbf{clique} is a subgraph $G'$ of $G$ such that all vertices in $G'$ are adjacent
+		$G=(X,E)$ a simple undirected graph. A \defword{clique} is a subgraph $G'$ of $G$ such that all vertices in $G'$ are adjacent
 	\end{definition}
 	\begin{definition}[$n$-clique]
-		A simple, complete graph on $n$ vertices is called an $n$-\textbf{clique} and is often denoted $K_n$
+		A simple, complete graph on $n$ vertices is called an $n$-\defword{clique} and is often denoted $K_n$
 	\end{definition}
 	\begin{definition}[Clique in directed graphs]
-		$G=(X,U)$ a simple directed graph. A \textbf{clique} is a subgraph $G'$ of $G$ such that all vertices in $G'$ are mutually adjacent
+		$G=(X,U)$ a simple directed graph. A \defword{clique} is a subgraph $G'$ of $G$ such that all vertices in $G'$ are mutually adjacent
 	\end{definition}
 	\begin{definition}[Maximal clique]
-		A \textbf{maximal clique} is a clique that cannot be extended by adding another adjacent vertex
+		A \defword{maximal clique} is a clique that cannot be extended by adding another adjacent vertex
 	\end{definition}
 \end{frame}
 
@@ -1613,31 +1620,35 @@ $G=(X,U)$ is weakly connected if there is a single weak component
 			\draw [thick] (x6) --  (x5);
 			\draw (x5) to[thick, out=-150, in=-30] (x1);
 			\end{tikzpicture}
-		\end{minipage}	
+		\end{minipage}
 \end{frame}
 
 
 \begin{frame}{Cliques in {\tt igraph}}
 \begin{itemize}
 	\item {\tt cliques} find all complete subgraphs in the input graph, obeying the size limitations given in the min and max arguments
+	\vfill
 	\item {\tt largest\_cliques} finds all largest cliques in the input graph
+	\vfill
 	\item {\tt max\_cliques} finds all maximal cliques in the input graph (The largest cliques are always maximal, but a maximal clique is not necessarily the largest)
+	\vfill
 	\item {\tt count\_max\_cliques} counts the maximal cliques
+	\vfill
 	\item {\tt clique\_num} calculates the size of the largest clique(s)
 \end{itemize}
 \end{frame}
-	
-	
+
+
 %%%%%%%%%%%%%%%%%%%%%
 \subsubsection{$k$-cores}
 
 \begin{frame}{$k$-core}
 	\begin{definition}[$k$-core of a graph]
-		$G=(X,U)$ a graph. The $\mathbf{k}$-\textbf{core} of $G$ is a maximal subgraph in which each vertex has degree at least $k$
+		$G=(X,U)$ a graph. The $\mathbf{k}$-\defword{core} of $G$ is a maximal subgraph in which each vertex has degree at least $k$
 	\end{definition}
 	\vfill
 	\begin{definition}[Coreness of a vertex]
-		$G=(X,U)$ a graph, $x\in X$. The \textbf{coreness} of $x$ is $k$ if $x$ belongs to the $k$-core of $G$ but not to the $k+1$ core of $G$
+		$G=(X,U)$ a graph, $x\in X$. The \defword{coreness} of $x$ is $k$ if $x$ belongs to the $k$-core of $G$ but not to the $k+1$ core of $G$
 	\end{definition}
 	\vfill
 	For directed graphs, in-cores or out-cores depending on whether in-degree or out-degree is used
@@ -1764,7 +1775,7 @@ $G=(X,U)$ is weakly connected if there is a single weak component
 			\draw [thick,looseness=5] (x2) to (x2);
 			\draw [thick,looseness=5] (x6) to (x6);
 		\end{tikzpicture}
-	\end{minipage}	
+	\end{minipage}
 	$\implies$
 	\begin{minipage}{0.45\textwidth}
 		\def\skip{2.75cm}
@@ -1793,7 +1804,7 @@ $G=(X,U)$ is weakly connected if there is a single weak component
 			\draw [thick,looseness=5,red] (x3) to (x3);
 			\draw [thick,looseness=5,red] (x6) to (x6);
 		\end{tikzpicture}
-	\end{minipage}	
+	\end{minipage}
 \end{frame}
 
 % \begin{frame}
@@ -2041,40 +2052,45 @@ $G=(X,U)$ is weakly connected if there is a single weak component
 \begin{frame}{See for instance...}
 \begin{itemize}
 \item Newman. \href{https://doi.org/10.1103/PhysRevE.66.016128}{Spread of epidemic disease on networks}, 2002
+\vfill
 \item Keeling \& Eames. \href{https://doi.org/10.1098/rsif.2005.0051}{Networks and epidemic models}, 2005
+\vfill
 \item Meyers, Pourbohloul, Newman, Skowronski \& Brunham. \href{https://doi.org/10.1016/j.jtbi.2004.07.026}{Network theory and SARS: predicting outbreak diversity}, 2005
+\vfill
 \item Meyers, Newman \& Pourohloul. \href{https://doi.org/10.1016/j.jtbi.2005.10.004}{Predicting epidemics on directed contact networks}, 2006
+\vfill
 \item Bansal, Read, Pourbohloul \& Meyers. \href{https://doi.org/10.1080/17513758.2010.503376}{The dynamic nature of contact networks in infectious disease epidemiology}, 2010
 \end{itemize}
 \end{frame} 
 
 \begin{frame}
 Typically, consider a graph (or digraph, depending on the cases) in which
+\vfill
 \begin{itemize}
 \item Each vertex is an individual
+\vfill
 \item Existence of an arc from $i$ to $j$ indicates that $i$ is in contact with $j$ and can transmit the pathogen to them
-\item dans le cas non orienté, l'existence d'un arc de $i$ vers $j$ implique celle d'un arc (le même) de $j$ vers $i$ et établit que les deux individus sont connectés
-\item La connexion n'est pas permanente, mais décrit plutôt la possibilité d'une connexion: $i$ et $j$ entrent en contact de façon régulière
+\vfill
+\item in the undirected case, existence of an arc from $i$ to $j$ implies existence of an arc (the same) from $j$ to $i$ and establishes that the two individuals are connected
+\vfill
+\item The connection is not permanent, but rather describes the possibility of a connection: $i$ and $j$ regularly come into contact
 \end{itemize}
 \end{frame} 
 
 
-\begin{frame}
+\begin{frame}{Adjacency matrix}
+We often use the \defword{adjacency matrix} $A=[a_{ij}]$ in which $a_{ij}=1$ if node $i$ has a link to node $j$ and $a_{ij}=0$ otherwise
+\vfill
+We sometimes write $A(\mathcal{D})$ to indicate that $A$ is the adjacency matrix of digraph $\mathcal{D}$ and, in the other direction, $\mathcal{D}(A)$ to indicate that the graph is constructed using the adjacency matrix
+\vfill
+If the graph is undirected, then$A$ is symmetrical
+\end{frame} 
 
- Matrice d'adjacence
 
-On utilisera souvent la **matrice d'adjacence** $A=[a_{ij}]$, dans laquelle $a_{ij}=1$ si le nœud $i$ a un lien vers le nœud $j$ et $a_{ij}=0$ sinon
-
-On écrit parfois $A(\mathcal{D})$ pour indiquer que $A$ est la matrice d'adjacence du digraphe $\mathcal{D}$, et dans l'autre sens, $\mathcal{D}(A)$ pour indiquer que le graphe est construit en utilisant la matrice d'adjacence
-
-Si le graphe est non orienté, alors $A$ est symmétrique
-
-\end{frame} \begin{frame}
-
- Nature du réseau
-
-- Parfois on dispose de données précises sur les liens entre individus (sondages, etc.)
-- Souvent on idéalise des réseaux, on choisit des réseaux avec des propriétés données
+\begin{frame}{Nature of the network}
+\bbullet Sometimes we have precise data about links between individuals (polls, surveys, etc.)
+\vfill
+\bbullet Often networks are ``idealised'', networks are chosen with specified properties
 \end{frame} 
 
 
@@ -2087,7 +2103,7 @@ T_c = \frac{\langle k\rangle}{\langle k^2\rangle-\langle k\rangle}
 \]
 where $\langle k\rangle$ and $\langle k^2\rangle$ are the mean and mean square degree
 \vfill
-Il est nécessaire que $T>T_c$ pour qu'un *outbreak* devienne une épidémie majeure
+There must hold that $T>T_c$ for an \emph{outbreak} to turn into a major epidemic
 \end{frame}
 
 
