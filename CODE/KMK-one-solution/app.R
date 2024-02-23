@@ -32,6 +32,12 @@ ui <- fluidPage(
     # Sidebar with a slider input for number of bins 
     sidebarLayout(
         sidebarPanel(
+          sliderInput("I_0",
+                      "I_0:",
+                      min = 1,
+                      max = 50,
+                      value = 5,
+                      step = 1),
           sliderInput("R_0",
                       "R_0:",
                       min = 0.5,
@@ -60,7 +66,7 @@ server <- function(input, output) {
     output$distPlot <- renderPlot({
       # Initial condition for S (to compute R_0)
       N = 1000
-      I0 = 20
+      I0 = input$I_0
       S0 = N-I0
       R0 = 0
       # Get R_0 and gamma from the sliders
@@ -83,7 +89,7 @@ server <- function(input, output) {
       ## Plot results
       plot(sol_KMK[, "time"], sol_KMK[, "I"], 
            type = "l", lwd = 2,
-           main = TeX(sprintf("KMK SIR, $R_0=%1.2f$, $S_\\infty=%3.1f$, attack rate=%3.2f", R_0, S_infty, attack_rate)),
+           main = TeX(sprintf("KMK SIR, $R_0=%1.2f$, $S_\\infty=%3.1f$, attack rate=%3.2f%%", R_0, S_infty, attack_rate)),
            xlab = "Time (days)", ylab = "Prevalence")
     })
 }

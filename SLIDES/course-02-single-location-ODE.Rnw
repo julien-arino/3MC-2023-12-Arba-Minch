@@ -1,5 +1,5 @@
 %\SweaveUTF8
-\documentclass[aspectratio=169]{beamer}
+\documentclass[aspectratio=43]{beamer}
 
 \input{slides_setup_nonLightBoard_whiteBG.tex}
 

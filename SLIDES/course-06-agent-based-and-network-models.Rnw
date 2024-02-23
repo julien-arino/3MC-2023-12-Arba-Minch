@@ -5,9 +5,9 @@
 \input{slides_setup_nonLightBoard_whiteBG.tex}
 
 \title{Agent-based and network models}
-\subtitle{Lecture 06}
+\subtitle{Arba Minch -- Course 06}
 \author{Julien Arino}
-\date{September 2023}
+\date{December 2023}
 
 
 \begin{document}

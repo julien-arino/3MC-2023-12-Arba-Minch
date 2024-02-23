@@ -7,7 +7,7 @@
 - Wednesday 20 December 2023
     - 08:30-10:00 Lecture 8: Meta-population models
     - 14:00-15:30 Lecture 10: Stochastic aspects in the spread of epidemics
-- Thursday 20 December 2023
+- Thursday 21 December 2023
     - 08:30-10:00 Lecture 11: Stochastic epidemic models
     - 10:30-12:00 Lecture 12: Virus models
     - 14:00-15:30 Lecture 13: Agent-based models

@@ -32,6 +32,12 @@ ui <- fluidPage(
     # Sidebar with a slider input for number of bins 
     sidebarLayout(
         sidebarPanel(
+          sliderInput("I_0",
+                      "I_0:",
+                      min = 1,
+                      max = 50,
+                      value = 5,
+                      step = 1),
           sliderInput("R_01",
                       "R_0^1:",
                       min = 0.5,
@@ -65,7 +71,7 @@ server <- function(input, output) {
     output$distPlot <- renderPlot({
       # Initial condition for S (to compute R_0)
       N = 1000
-      I0 = 20
+      I0 = input$I_0
       S0 = N-I0
       R0 = 0
       # Get R_0 and gamma from the sliders
