@@ -9,7 +9,7 @@ library(parallel)
 RHS_KMK_SIR <- function(t, x, p) {
   with(as.list(c(x,p)), {
     dS <- -beta*S*I/pop
-    dI <- beta*S*I/pop-gamma*I
+    dI <- beta*S*I/pop-gamma*I 
     dR <- gamma*I
     return(list(c(dS, dI, dR)))
   })

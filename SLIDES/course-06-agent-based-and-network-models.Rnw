@@ -161,9 +161,10 @@ f(S,I,N)=
 
 
 \begin{frame}{Negative binomial incidence}
-\begin{frame}\label{eq:neg_binom_incidence}
+\begin{equation}
+\label{eq:neg_binom_incidence}
 f(S,I,N)=kS\ln\left(1+\beta\frac Ik\right)
-\end{frame}
+\end{equation}
 \vfill
 For small values of $k$, this function describes a very concentrated infection process, while when $k\to\infty$, this function reduces to a mass action incidence
 \end{frame}
