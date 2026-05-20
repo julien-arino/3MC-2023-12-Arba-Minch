@@ -1,4 +1,4 @@
-# A short course on Mathematical Epidemiology
+# Mathematical Epidemiology Short Course | Durban 2023
 
 These are slides and some code for a course taught during the Workshop on "Mathematical Modelling and Bio-informatics of infectious diseases", held at UKZN (Durban) in September 2023. See the web version of the repo [here](https://julien-arino.github.io/3MC-2023-12-Arba-Minch/) for more information.
 

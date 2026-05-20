@@ -1,8 +1,8 @@
 - Monday 18 December 2023
     - 08:30-10:00 Lecture 1: History of epidemics and historical epidemics
-    - 14:00-15:30 Lecture 4: Basic concepts of mathematical epidemiology. Models in one population and their basic properties
+    - 14:00-15:30 Lecture 4: Basic Concepts of Math Epi & Models in 1 Pop | 3MC
 - Tuesday 19 December 2023
-    - 08:30-10:00 Lecture 5: Epidemics spreading among groups. Epidemics spreading in space and time
+    - 08:30-10:00 Lecture 5: Epidemics Spreading in Groups, Space, and Time | 3MC
     - 14:00-15:30 Lecture 7: Group models
 - Wednesday 20 December 2023
     - 08:30-10:00 Lecture 8: Meta-population models

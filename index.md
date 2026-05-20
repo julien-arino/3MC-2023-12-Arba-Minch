@@ -1,4 +1,4 @@
-## A short course on Mathematical Epidemiology
+## Mathematical Epidemiology Short Course | Durban 2023
 
 These are the slides and some code for a course taught during the 3MC workshop on Bioinformatics and Mathematical Modelling, held at Arba Minch University in December 2023.
 
